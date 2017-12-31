@@ -1,0 +1,36 @@
+{
+  "name": "piobuddev/sakila",
+  "description": "Domain logic for sakila applications",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Piotr Budny",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Sakila\\": "src/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5",
+    "phpstan/phpstan": "^0.8.5",
+    "squizlabs/php_codesniffer": "*"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Sakila\\Test\\": ["tests/Unit", "tests/Integration"]
+    }
+  },
+  "scripts": {
+    "phpstan": "vendor/bin/phpstan analyse -l 7 src tests",
+    "phpcs": "vendor/bin/phpcs --standard=PSR2 --extensions=php --colors --severity=1 src tests",
+    "phpcbf": "vendor/bin/phpcbf --standard=PSR2 --extensions=php --colors --severity=1 src tests",
+    "test": [
+      "@phpstan",
+      "@phpcs",
+      "phpunit"
+    ]
+  }
+}
