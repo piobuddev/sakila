@@ -2,6 +2,8 @@
 
 namespace Sakila\Domain\Actor\Repository;
 
-interface ActorRepositoryInterface
+use Sakila\Repository\RepositoryInterface;
+
+interface ActorRepositoryInterface extends RepositoryInterface
 {
 }

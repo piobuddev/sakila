@@ -12,7 +12,7 @@ class SakilaException extends Exception
      */
     public function __construct(string $message = '', $arguments = null)
     {
-        $message = sprintf($message, $arguments);
+        $message = vsprintf($message, (array)$arguments);
 
         parent::__construct($message);
     }

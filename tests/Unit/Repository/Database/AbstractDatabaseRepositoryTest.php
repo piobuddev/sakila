@@ -4,8 +4,9 @@ namespace Sakila\Test\Repository\Database;
 
 use Sakila\Entity\EntityInterface;
 use Sakila\Entity\Factory;
-use Sakila\Repository\ConnectionInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
+use Sakila\Repository\Database\ConnectionInterface;
+use Sakila\Repository\Database\Table\Table;
 use Sakila\Test\AbstractUnitTestCase;
 
 class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
@@ -15,7 +16,7 @@ class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
     private const ENTITY_ID = 1;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Sakila\Repository\ConnectionInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Sakila\Repository\Database\ConnectionInterface
      */
     private $connectionMock;
 
@@ -54,49 +55,50 @@ class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
         );
     }
 
-    public function testUseConnectionToFetchData()
+    public function testGetMethodUseConnectionToFetchData()
     {
-        $this->connectionMock->expects($this->once())->method('get')->willReturn([]);
+        $this->connectionMock->expects($this->once())->method('fetch')->willReturn([]);
 
-        $this->cut->find(self::ENTITY_ID);
+        $this->cut->get(self::ENTITY_ID);
     }
 
     public function testResolveTableNameFromClassName()
     {
         $tableName = strtolower(str_replace('Repository', '', self::TEST_CLASS_NAME));
+        $table     = new Table($tableName);
 
         $this->connectionMock
             ->expects($this->once())
-            ->method('get')
-            ->with($tableName, self::ENTITY_ID)
+            ->method('fetch')
+            ->with($table, self::ENTITY_ID)
             ->willReturn([]);
 
-        $this->cut->find(self::ENTITY_ID);
+        $this->cut->get(self::ENTITY_ID);
     }
 
     public function testReturnDataFromFactory()
     {
-        $this->connectionMock->method('get')->willReturn([]);
+        $this->connectionMock->method('fetch')->willReturn([]);
         $this->factoryMock->expects($this->once())->method('create')->willReturn($this->entityMock);
 
-        $this->assertEquals($this->entityMock, $this->cut->find(self::ENTITY_ID));
+        $this->assertEquals($this->entityMock, $this->cut->get(self::ENTITY_ID));
     }
 
     public function testUseTableNameSetInConcreteClass()
     {
-        $tableName = 'test_table';
-        $cut       = new \ReflectionClass($this->cut);
+        $table = new Table('test_table');
+        $cut   = new \ReflectionClass($this->cut);
 
         $property = $cut->getProperty('table');
         $property->setAccessible(true);
-        $property->setValue($this->cut, $tableName);
+        $property->setValue($this->cut, $table->getName());
 
         $this->connectionMock
             ->expects($this->once())
-            ->method('get')
-            ->with($tableName, self::ENTITY_ID)
+            ->method('fetch')
+            ->with($table, self::ENTITY_ID)
             ->willReturn([]);
 
-        $this->cut->find(self::ENTITY_ID);
+        $this->cut->get(self::ENTITY_ID);
     }
 }

@@ -4,6 +4,6 @@ namespace Sakila\Test;
 
 use PHPUnit\Framework\TestCase;
 
-class AbstractUnitTestCase extends TestCase
+abstract class AbstractUnitTestCase extends TestCase
 {
 }

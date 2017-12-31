@@ -2,18 +2,13 @@
 
 namespace Sakila\Repository\Database;
 
-use ReflectionClass;
 use Sakila\Entity\EntityInterface;
 use Sakila\Entity\Factory;
-use Sakila\Repository\AbstractRepository;
-use Sakila\Repository\ConnectionInterface;
+use Sakila\Repository\RepositoryInterface;
 
-abstract class AbstractDatabaseRepository extends AbstractRepository implements RepositoryInterface
+abstract class AbstractDatabaseRepository implements RepositoryInterface
 {
-    /**
-     * @var string
-     */
-    protected $table;
+    use TableAwareTrait;
 
     /**
      * @var \Sakila\Entity\Factory
@@ -21,38 +16,31 @@ abstract class AbstractDatabaseRepository extends AbstractRepository implements 
     private $entityFactory;
 
     /**
-     * @param \Sakila\Repository\ConnectionInterface $connection
-     * @param \Sakila\Entity\Factory                 $entityFactory
+     * @var \Sakila\Repository\Database\ConnectionInterface
+     */
+    protected $connection;
+
+    /**
+     * @param \Sakila\Repository\Database\ConnectionInterface $connection
+     * @param \Sakila\Entity\Factory                          $entityFactory
      */
     public function __construct(ConnectionInterface $connection, Factory $entityFactory)
     {
-        parent::__construct($connection);
-
-        $this->table         = $this->resolveTableName();
+        $this->connection    = $connection;
         $this->entityFactory = $entityFactory;
     }
 
     /**
-     * @param int $entityId
+     * @param mixed $identifier
+     * @param null  $default
      *
      * @return \Sakila\Entity\EntityInterface
      * @throws \Sakila\Exceptions\InvalidArgumentException
      */
-    public function find(int $entityId): EntityInterface
+    public function get($identifier, $default = null): EntityInterface
     {
-        //** todo: handle response */
-        $data = $this->getConnection()->get($this->table, $entityId);
+        $result = $this->connection->fetch($this->getTable(), $identifier);
 
-        return $this->entityFactory->create($this->table, $data);
-    }
-
-    /**
-     * @return string
-     */
-    protected function resolveTableName(): string
-    {
-        $className = (new ReflectionClass(get_class($this)))->getShortName();
-
-        return strtolower(str_replace('Repository', '', $className));
+        return $this->entityFactory->create($this->getTable()->getName(), $result);
     }
 }

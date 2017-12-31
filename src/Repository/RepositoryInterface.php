@@ -6,23 +6,9 @@ interface RepositoryInterface
 {
     /**
      * @param mixed $identifier
+     * @param null  $default
      *
      * @return mixed
      */
-    public function get($identifier);
-
-    /**
-     * @param mixed $identifier
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function set($identifier, $value);
-
-    /**
-     * @param mixed $identifier
-     *
-     * @return bool
-     */
-    public function has($identifier): bool;
+    public function get($identifier, $default = null);
 }
