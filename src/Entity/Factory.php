@@ -36,4 +36,20 @@ class Factory
                 throw new InvalidArgumentException('Invalid resource name `%s`', $resource);
         }
     }
+
+    /**
+     * @param string $resource
+     * @param array  $items
+     *
+     * @return array
+     */
+    public function hydrate(string $resource, array $items): array
+    {
+        return array_map(
+            function ($item) use ($resource) {
+                return $this->create($resource, (array) $item);
+            },
+            $items
+        );
+    }
 }

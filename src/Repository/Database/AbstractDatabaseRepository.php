@@ -4,6 +4,9 @@ namespace Sakila\Repository\Database;
 
 use Sakila\Entity\EntityInterface;
 use Sakila\Entity\Factory;
+use Sakila\Exceptions\Database\NotFoundException;
+use Sakila\Exceptions\Repository\RepositoryException;
+use Sakila\Exceptions\SakilaException;
 use Sakila\Repository\RepositoryInterface;
 
 abstract class AbstractDatabaseRepository implements RepositoryInterface
@@ -31,16 +34,94 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
     }
 
     /**
-     * @param mixed $identifier
-     * @param null  $default
+     * @param int $entityId
      *
      * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Database\NotFoundException
      * @throws \Sakila\Exceptions\InvalidArgumentException
      */
-    public function get($identifier, $default = null): EntityInterface
+    public function get(int $entityId): EntityInterface
     {
-        $result = $this->connection->fetch($this->getTable(), $identifier);
+        $table   = $this->getTableName();
+        $results = $this->connection->query()->from($table)->where([$this->primaryKey => $entityId])->get();
+        $result  = (array)array_pop($results);
 
-        return $this->entityFactory->create($this->getTable()->getName(), $result);
+        if (empty($result)) {
+            throw new NotFoundException('Row (ID:%s) not found in `%s` table', [$entityId, $table]);
+        }
+
+        return $this->entityFactory->create($table, $result);
+    }
+
+    /**
+     * @return array
+     */
+    public function all(): array
+    {
+        $results = $this->connection->query()->from($this->getTableName())->get();
+
+        return $this->entityFactory->hydrate($this->getTableName(), $results);
+    }
+
+    /**
+     * @param int   $entityId
+     * @param array $value
+     *
+     * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Database\NotFoundException
+     * @throws \Sakila\Exceptions\InvalidArgumentException
+     * @throws \Sakila\Exceptions\SakilaException
+     */
+    public function update(int $entityId, array $value): EntityInterface
+    {
+        $where   = [$this->primaryKey => $entityId];
+        $updated = $this->connection->update($this->getTableName(), $value, $where);
+        if ($updated !== 1) {
+            throw new SakilaException();
+        }
+
+        return $this->get($entityId);
+    }
+
+    /**
+     * @param array $value
+     *
+     * @return bool
+     * @throws \Sakila\Exceptions\Repository\RepositoryException
+     */
+    public function add(array $value): bool
+    {
+        $insert = $this->connection->insert($this->getTableName(), $value);
+        if (!$insert) {
+            throw new RepositoryException('Error occurred while adding a data');
+        }
+
+        return $insert;
+    }
+
+    /**
+     * @param $entityId
+     *
+     * @return bool
+     */
+    public function remove(int $entityId): bool
+    {
+        $where = [$this->primaryKey => $entityId];
+
+        return $this->connection->delete($this->getTableName(), $where);
+    }
+
+    /**
+     * @return int
+     * @throws \Sakila\Exceptions\Repository\RepositoryException
+     */
+    public function lastInsertedId(): int
+    {
+        $lastInsertedId = $this->connection->lastInsertedId();
+        if (!$lastInsertedId) {
+            throw new RepositoryException('Could not fetch a last inserted ID');
+        }
+
+        return $lastInsertedId;
     }
 }

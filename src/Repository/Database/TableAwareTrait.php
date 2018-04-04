@@ -3,8 +3,6 @@
 namespace Sakila\Repository\Database;
 
 use ReflectionClass;
-use Sakila\Repository\Database\Table\Table;
-use Sakila\Repository\Database\Table\TableInterface;
 
 trait TableAwareTrait
 {
@@ -16,17 +14,14 @@ trait TableAwareTrait
     /**
      * @var string
      */
-    protected $primaryKey;
+    protected $primaryKey = 'id';
 
     /**
-     * @return TableInterface
+     * @return string
      */
-    public function getTable(): TableInterface
+    public function getTableName(): string
     {
-        $pk    = $this->primaryKey ?: 'id';
-        $table = $this->table ?: $this->resolveTableName();
-
-        return new Table($table, $pk);
+         return $this->table ?: $this->resolveTableName();
     }
 
     /**

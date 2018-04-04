@@ -6,7 +6,7 @@ use Sakila\Entity\EntityInterface;
 use Sakila\Entity\Factory;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 use Sakila\Repository\Database\ConnectionInterface;
-use Sakila\Repository\Database\Table\Table;
+use Sakila\Repository\Database\Query\BuilderInterface;
 use Sakila\Test\AbstractUnitTestCase;
 
 class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
@@ -40,12 +40,25 @@ class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
      */
     private $cut;
 
+    /**
+     * @var \Sakila\Repository\Database\Query\BuilderInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    private $queryBuilder;
+
     protected function setUp()
     {
         parent::setUp();
 
         $this->testData       = ['foo' => 'baz'];
+
+        $this->queryBuilder   = $this->createMock(BuilderInterface::class);
+        $this->queryBuilder->method('from')->willReturnSelf();
+        $this->queryBuilder->method('where')->willReturnSelf();
+        $this->queryBuilder->method('get')->willReturn($this->testData);
+
         $this->connectionMock = $this->createMock(ConnectionInterface::class);
+        $this->connectionMock->method('query')->willReturn($this->queryBuilder);
+
         $this->entityMock     = $this->createMock(EntityInterface::class);
         $this->factoryMock    = $this->createMock(Factory::class);
         $this->cut            = $this->getMockForAbstractClass(
@@ -57,7 +70,7 @@ class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
 
     public function testGetMethodUseConnectionToFetchData()
     {
-        $this->connectionMock->expects($this->once())->method('fetch')->willReturn([]);
+        $this->connectionMock->expects($this->once())->method('query')->willReturn($this->queryBuilder);
 
         $this->cut->get(self::ENTITY_ID);
     }
@@ -65,20 +78,15 @@ class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
     public function testResolveTableNameFromClassName()
     {
         $tableName = strtolower(str_replace('Repository', '', self::TEST_CLASS_NAME));
-        $table     = new Table($tableName);
 
-        $this->connectionMock
-            ->expects($this->once())
-            ->method('fetch')
-            ->with($table, self::ENTITY_ID)
-            ->willReturn([]);
+        $this->queryBuilder->expects($this->once())->method('from')->with($tableName)->willReturnSelf();
+        $this->connectionMock->expects($this->once())->method('query')->willReturn($this->queryBuilder);
 
         $this->cut->get(self::ENTITY_ID);
     }
 
     public function testReturnDataFromFactory()
     {
-        $this->connectionMock->method('fetch')->willReturn([]);
         $this->factoryMock->expects($this->once())->method('create')->willReturn($this->entityMock);
 
         $this->assertEquals($this->entityMock, $this->cut->get(self::ENTITY_ID));
@@ -86,19 +94,28 @@ class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
 
     public function testUseTableNameSetInConcreteClass()
     {
-        $table = new Table('test_table');
+        $table = 'foo_table';
         $cut   = new \ReflectionClass($this->cut);
 
         $property = $cut->getProperty('table');
         $property->setAccessible(true);
-        $property->setValue($this->cut, $table->getName());
+        $property->setValue($this->cut, $table);
 
-        $this->connectionMock
-            ->expects($this->once())
-            ->method('fetch')
-            ->with($table, self::ENTITY_ID)
-            ->willReturn([]);
+        $this->queryBuilder->expects($this->once())->method('from')->with($table)->willReturnSelf();
 
         $this->cut->get(self::ENTITY_ID);
+    }
+
+    public function testAllMethodUseConnectionToFetchAllData()
+    {
+        $this->queryBuilder->expects($this->once())->method('from')->willReturnSelf();
+        $this->queryBuilder->expects($this->once())->method('get')->willReturn($this->testData);
+
+        $this->cut->all();
+    }
+
+    public function testReturnsInstanceOfEntityInterface()
+    {
+        $this->markTestIncomplete('add integration');
     }
 }

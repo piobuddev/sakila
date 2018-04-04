@@ -2,15 +2,42 @@
 
 namespace Sakila\Repository\Database;
 
-use Sakila\Repository\Database\Table\TableInterface;
+use Sakila\Repository\Database\Query\BuilderInterface;
 
 interface ConnectionInterface
 {
     /**
-     * @param \Sakila\Repository\Database\Table\TableInterface $table
-     * @param int                                              $entityId
-     *
-     * @return mixed
+     * @return \Sakila\Repository\Database\Query\BuilderInterface
      */
-    public function fetch(TableInterface $table, int $entityId);
+    public function query(): BuilderInterface;
+
+    /**
+     * @param string $table
+     * @param array  $data
+     *
+     * @return bool
+     */
+    public function insert(string $table, array $data): bool;
+
+    /**
+     * @param string     $table
+     * @param array      $values
+     * @param array|null $where
+     *
+     * @return int
+     */
+    public function update(string $table, array $values, array $where = null): int;
+
+    /**
+     * @param string $table
+     * @param array $where
+     *
+     * @return bool
+     */
+    public function delete(string $table, array $where): bool;
+
+    /**
+     * @return int
+     */
+    public function lastInsertedId(): int;
 }
