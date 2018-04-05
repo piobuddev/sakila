@@ -6,7 +6,6 @@ use Sakila\Entity\EntityInterface;
 use Sakila\Entity\Factory;
 use Sakila\Exceptions\Database\NotFoundException;
 use Sakila\Exceptions\Repository\RepositoryException;
-use Sakila\Exceptions\SakilaException;
 use Sakila\Repository\RepositoryInterface;
 
 abstract class AbstractDatabaseRepository implements RepositoryInterface
@@ -70,15 +69,11 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
      * @return \Sakila\Entity\EntityInterface
      * @throws \Sakila\Exceptions\Database\NotFoundException
      * @throws \Sakila\Exceptions\InvalidArgumentException
-     * @throws \Sakila\Exceptions\SakilaException
      */
     public function update(int $entityId, array $value): EntityInterface
     {
-        $where   = [$this->primaryKey => $entityId];
-        $updated = $this->connection->update($this->getTableName(), $value, $where);
-        if ($updated !== 1) {
-            throw new SakilaException();
-        }
+        $where = [$this->primaryKey => $entityId];
+        $this->connection->update($this->getTableName(), $value, $where);
 
         return $this->get($entityId);
     }

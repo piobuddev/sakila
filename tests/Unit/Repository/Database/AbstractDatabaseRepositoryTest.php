@@ -1,9 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Sakila\Test\Repository\Database;
 
-use Sakila\Entity\EntityInterface;
+use Sakila\Domain\Actor\Entity\ActorEntity;
 use Sakila\Entity\Factory;
+use Sakila\Exceptions\Database\NotFoundException;
+use Sakila\Exceptions\Repository\RepositoryException;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 use Sakila\Repository\Database\ConnectionInterface;
 use Sakila\Repository\Database\Query\BuilderInterface;
@@ -11,111 +13,156 @@ use Sakila\Test\AbstractUnitTestCase;
 
 class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
 {
-    private const TEST_CLASS_NAME = 'TestRepository';
-
-    private const ENTITY_ID = 1;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Sakila\Repository\Database\ConnectionInterface
-     */
-    private $connectionMock;
-
-    /**
-     * @var
-     */
-    private $testData;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Sakila\Entity\Factory
-     */
-    private $factoryMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Sakila\Entity\EntityInterface
-     */
-    private $entityMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|\Sakila\Repository\Database\AbstractDatabaseRepository
-     */
-    private $cut;
-
-    /**
-     * @var \Sakila\Repository\Database\Query\BuilderInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private $queryBuilder;
-
-    protected function setUp()
+    public function testGetMethodThrowsExceptionWhenNoResults()
     {
-        parent::setUp();
+        $this->expectException(NotFoundException::class);
 
-        $this->testData       = ['foo' => 'baz'];
+        $connection = $this->getMockForAbstractClass(ConnectionInterface::class);
+        $cut        = $this->getCut($connection);
 
-        $this->queryBuilder   = $this->createMock(BuilderInterface::class);
-        $this->queryBuilder->method('from')->willReturnSelf();
-        $this->queryBuilder->method('where')->willReturnSelf();
-        $this->queryBuilder->method('get')->willReturn($this->testData);
+        $cut->get(1);
+    }
 
-        $this->connectionMock = $this->createMock(ConnectionInterface::class);
-        $this->connectionMock->method('query')->willReturn($this->queryBuilder);
+    public function testGetMethod()
+    {
+        $data         = ['foo' => 'bar'];
+        $queryBuilder = $this->getMockForAbstractClass(BuilderInterface::class);
+        $queryBuilder->method('from')->with('foo')->willReturnSelf();
+        $queryBuilder->method('where')->with(['id' => 1])->willReturnSelf();
+        $queryBuilder->method('get')->willReturn([$data]);
 
-        $this->entityMock     = $this->createMock(EntityInterface::class);
-        $this->factoryMock    = $this->createMock(Factory::class);
-        $this->cut            = $this->getMockForAbstractClass(
+        $entity        = new ActorEntity();
+        $entityFactory = $this->createMock(Factory::class);
+        $entityFactory->method('create')->with('foo', $data)->willReturn($entity);
+
+        $connection = $this->getMockForAbstractClass(ConnectionInterface::class);
+        $connection->expects($this->once())->method('query')->willReturn($queryBuilder);
+
+        $cut = $this->getCut($connection, $entityFactory);
+
+        $this->assertEquals($entity, $cut->get(1));
+    }
+
+    public function testAllMethod()
+    {
+        $data         = ['foo' => 'bar'];
+        $queryBuilder = $this->getMockForAbstractClass(BuilderInterface::class);
+        $queryBuilder->method('from')->with('foo')->willReturnSelf();
+        $queryBuilder->method('get')->willReturn($data);
+
+        $entity        = new ActorEntity();
+        $entityFactory = $this->createMock(Factory::class);
+        $entityFactory->method('hydrate')->with('foo', $data)->willReturn([$entity]);
+
+        $connection = $this->getMockForAbstractClass(ConnectionInterface::class);
+        $connection->expects($this->once())->method('query')->willReturn($queryBuilder);
+
+        $cut = $this->getCut($connection, $entityFactory);
+
+        $this->assertEquals([$entity], $cut->all());
+    }
+
+    public function testUpdateMethod()
+    {
+        $data         = ['foo' => 'bar'];
+        $queryBuilder = $this->getMockForAbstractClass(BuilderInterface::class);
+        $queryBuilder->method('from')->with('foo')->willReturnSelf();
+        $queryBuilder->method('where')->with(['id' => 1])->willReturnSelf();
+        $queryBuilder->method('get')->willReturn([$data]);
+
+        $entity        = new ActorEntity();
+        $entityFactory = $this->createMock(Factory::class);
+        $entityFactory->method('create')->with('foo', $data)->willReturn($entity);
+
+        $connection = $this->getMockForAbstractClass(ConnectionInterface::class);
+        $connection->expects($this->once())->method('update')->with('foo', $data, ['id' => 1]);
+        $connection->expects($this->once())->method('query')->willReturn($queryBuilder);
+
+        $cut = $this->getCut($connection, $entityFactory);
+
+        $this->assertEquals($entity, $cut->update(1, $data));
+    }
+
+    public function testInsertMethod()
+    {
+        $value      = ['foo' => 'bar'];
+        $connection = $this->getMockForAbstractClass(ConnectionInterface::class);
+        $connection
+            ->expects($this->once())
+            ->method('insert')
+            ->with('foo', $value)
+            ->willReturn(true);
+
+        $cut = $this->getCut($connection);
+
+        $this->assertTrue($cut->add($value));
+    }
+
+    public function testInsertMethodThrowsException()
+    {
+        $this->expectException(RepositoryException::class);
+
+        $value      = ['foo' => 'bar'];
+        $connection = $this->getMockForAbstractClass(ConnectionInterface::class);
+        $connection
+            ->expects($this->once())
+            ->method('insert')
+            ->with('foo', $value)
+            ->willReturn(false);
+
+        $cut = $this->getCut($connection);
+
+        $cut->add($value);
+    }
+
+    public function testRemoveMethod()
+    {
+        $connection = $this->getMockForAbstractClass(ConnectionInterface::class);
+        $connection
+            ->expects($this->once())
+            ->method('delete')
+            ->with('foo', ['id' => 1])
+            ->willReturn(true);
+
+        $cut = $this->getCut($connection);
+
+        $cut->remove(1);
+    }
+
+    public function testLastInsertedId()
+    {
+        $connection = $this->getMockForAbstractClass(ConnectionInterface::class);
+        $connection->expects($this->once())->method('lastInsertedId')->willReturn(1);
+
+        $cut = $this->getCut($connection);
+
+        $this->assertEquals(1, $cut->lastInsertedId());
+    }
+
+    public function testLastInsertedIdThrowsException()
+    {
+        $this->expectException(RepositoryException::class);
+
+        $connection = $this->getMockForAbstractClass(ConnectionInterface::class);
+        $connection->expects($this->once())->method('lastInsertedId')->willReturn(0);
+
+        $cut = $this->getCut($connection);
+
+        $cut->lastInsertedId();
+    }
+
+    /**
+     * @param                                               $connection
+     * @param null|\PHPUnit\Framework\MockObject\MockObject $factory
+     *
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Sakila\Repository\Database\AbstractDatabaseRepository
+     */
+    private function getCut($connection, $factory = null)
+    {
+        return $this->getMockForAbstractClass(
             AbstractDatabaseRepository::class,
-            [$this->connectionMock, $this->factoryMock],
-            self::TEST_CLASS_NAME
+            [$connection, $factory ?? $this->createMock(Factory::class)],
+            'FooRepository'
         );
-    }
-
-    public function testGetMethodUseConnectionToFetchData()
-    {
-        $this->connectionMock->expects($this->once())->method('query')->willReturn($this->queryBuilder);
-
-        $this->cut->get(self::ENTITY_ID);
-    }
-
-    public function testResolveTableNameFromClassName()
-    {
-        $tableName = strtolower(str_replace('Repository', '', self::TEST_CLASS_NAME));
-
-        $this->queryBuilder->expects($this->once())->method('from')->with($tableName)->willReturnSelf();
-        $this->connectionMock->expects($this->once())->method('query')->willReturn($this->queryBuilder);
-
-        $this->cut->get(self::ENTITY_ID);
-    }
-
-    public function testReturnDataFromFactory()
-    {
-        $this->factoryMock->expects($this->once())->method('create')->willReturn($this->entityMock);
-
-        $this->assertEquals($this->entityMock, $this->cut->get(self::ENTITY_ID));
-    }
-
-    public function testUseTableNameSetInConcreteClass()
-    {
-        $table = 'foo_table';
-        $cut   = new \ReflectionClass($this->cut);
-
-        $property = $cut->getProperty('table');
-        $property->setAccessible(true);
-        $property->setValue($this->cut, $table);
-
-        $this->queryBuilder->expects($this->once())->method('from')->with($table)->willReturnSelf();
-
-        $this->cut->get(self::ENTITY_ID);
-    }
-
-    public function testAllMethodUseConnectionToFetchAllData()
-    {
-        $this->queryBuilder->expects($this->once())->method('from')->willReturnSelf();
-        $this->queryBuilder->expects($this->once())->method('get')->willReturn($this->testData);
-
-        $this->cut->all();
-    }
-
-    public function testReturnsInstanceOfEntityInterface()
-    {
-        $this->markTestIncomplete('add integration');
     }
 }

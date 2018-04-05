@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Sakila\Domain\Actor\Entity\Validator;
+namespace Sakila\Domain\Actor\Validator;
 
 use Sakila\Entity\Validator\Validator;
 

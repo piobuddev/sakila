@@ -31,6 +31,20 @@ class FactoryTest extends AbstractIntegrationTestCase
         $this->assertEquals('Mia', $actor->firstName);
     }
 
+    public function testCreateMultipleEntities()
+    {
+        $data = [['first_name' => 'Mia'], ['first_name' => 'Joy']];
+        /** @var \Sakila\Domain\Actor\Entity\ActorEntity $actor */
+        $actors = $this->cut->hydrate('actor', $data);
+
+        $this->assertCount(count($data), $actors);
+        $this->assertInstanceOf(ActorEntity::class, $actors[0]);
+        $this->assertInstanceOf(ActorEntity::class, $actors[1]);
+
+        $this->assertEquals('Mia', $actors[0]->firstName);
+        $this->assertEquals('Joy', $actors[1]->firstName);
+    }
+
     public function testThrowExceptionWhenEntityDoesNotExist()
     {
         $this->expectException(InvalidArgumentException::class);

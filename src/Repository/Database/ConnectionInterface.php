@@ -20,17 +20,17 @@ interface ConnectionInterface
     public function insert(string $table, array $data): bool;
 
     /**
-     * @param string     $table
-     * @param array      $values
-     * @param array|null $where
+     * @param string $table
+     * @param array  $values
+     * @param array  $where
      *
      * @return int
      */
-    public function update(string $table, array $values, array $where = null): int;
+    public function update(string $table, array $values, array $where): int;
 
     /**
      * @param string $table
-     * @param array $where
+     * @param array  $where
      *
      * @return bool
      */

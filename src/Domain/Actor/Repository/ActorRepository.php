@@ -2,9 +2,8 @@
 
 namespace Sakila\Domain\Actor\Repository;
 
-use Sakila\Repository\Database\AbstractDatabaseRepository;
+use Sakila\Repository\RepositoryInterface;
 
-class ActorRepository extends AbstractDatabaseRepository implements ActorRepositoryInterface
+interface ActorRepository extends RepositoryInterface
 {
-    protected $primaryKey = 'actor_id';
 }

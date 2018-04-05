@@ -6,8 +6,8 @@ use Sakila\Domain\Actor\Commands\AddActorCommand;
 use Sakila\Domain\Actor\Commands\UpdateActorCommand;
 use Sakila\Domain\Actor\Entity\ActorEntity;
 use Sakila\Domain\Actor\Entity\Mapper\ActorMapper;
-use Sakila\Domain\Actor\Entity\Validator\ActorValidator;
 use Sakila\Domain\Actor\Repository\ActorRepository;
+use Sakila\Domain\Actor\Validator\ActorValidator;
 use Sakila\Exceptions\UnexpectedValueException;
 
 class ActorHandler
@@ -23,14 +23,14 @@ class ActorHandler
     private $actorRepository;
 
     /**
-     * @var \Sakila\Domain\Actor\Entity\Validator\ActorValidator
+     * @var \Sakila\Domain\Actor\Validator\ActorValidator
      */
     private $validator;
 
     /**
-     * @param \Sakila\Domain\Actor\Entity\Mapper\ActorMapper       $mapper
-     * @param \Sakila\Domain\Actor\Repository\ActorRepository      $repository
-     * @param \Sakila\Domain\Actor\Entity\Validator\ActorValidator $validator
+     * @param \Sakila\Domain\Actor\Entity\Mapper\ActorMapper  $mapper
+     * @param \Sakila\Domain\Actor\Repository\ActorRepository $repository
+     * @param \Sakila\Domain\Actor\Validator\ActorValidator   $validator
      */
     public function __construct(ActorMapper $mapper, ActorRepository $repository, ActorValidator $validator)
     {
@@ -43,9 +43,6 @@ class ActorHandler
      * @param \Sakila\Domain\Actor\Commands\AddActorCommand $command
      *
      * @return \Sakila\Domain\Actor\Entity\ActorEntity
-     * @throws \Sakila\Exceptions\Database\NotFoundException
-     * @throws \Sakila\Exceptions\InvalidArgumentException
-     * @throws \Sakila\Exceptions\Repository\RepositoryException
      * @throws \Sakila\Exceptions\UnexpectedValueException
      */
     public function handleAddActor(AddActorCommand $command): ActorEntity
@@ -72,9 +69,8 @@ class ActorHandler
      */
     public function handleUpdateActor(UpdateActorCommand $command): ActorEntity
     {
-        $this->validator->validate(
-            array_merge(['actor_id' => $command->getActorId()], $command->getAttributes())
-        );
+        $attributes = array_merge(['actor_id' => $command->getActorId()], $command->getAttributes());
+        $this->validator->validate($attributes);
 
         return $this->actorRepository->update(
             $command->getActorId(),

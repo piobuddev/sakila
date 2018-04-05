@@ -1,31 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Sakila\Exceptions;
+namespace Sakila\Exceptions\Validation;
 
-use Exception;
+use Sakila\Exceptions\SakilaException;
 
-class ValidationException extends Exception
+class ValidationException extends SakilaException
 {
-    /**
-     * @var array
-     */
-    private $messages;
-
     /**
      * @param array $messages
      */
-    public function __construct(array $messages = [])
+    public function __construct(string $message)
     {
-        $this->messages = $messages;
-
-        parent::__construct();
-    }
-
-    /**
-     * @return array
-     */
-    public function getMessages(): array
-    {
-        return $this->messages;
+        parent::__construct($message);
     }
 }
