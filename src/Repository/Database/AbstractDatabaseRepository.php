@@ -6,11 +6,20 @@ use Sakila\Entity\EntityInterface;
 use Sakila\Entity\Factory;
 use Sakila\Exceptions\Database\NotFoundException;
 use Sakila\Exceptions\Repository\RepositoryException;
+use Sakila\Repository\Database\Table\NameResolver;
 use Sakila\Repository\RepositoryInterface;
 
 abstract class AbstractDatabaseRepository implements RepositoryInterface
 {
-    use TableAwareTrait;
+    /**
+     * @var mixed
+     */
+    public $table;
+
+    /**
+     * @var string
+     */
+    protected $primaryKey = 'id';
 
     /**
      * @var \Sakila\Entity\Factory
@@ -23,13 +32,28 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
     protected $connection;
 
     /**
+     * @var \Sakila\Repository\Database\Table\NameResolver
+     */
+    private $nameResolver;
+
+    /**
      * @param \Sakila\Repository\Database\ConnectionInterface $connection
      * @param \Sakila\Entity\Factory                          $entityFactory
+     * @param \Sakila\Repository\Database\Table\NameResolver  $nameResolver
      */
-    public function __construct(ConnectionInterface $connection, Factory $entityFactory)
+    public function __construct(ConnectionInterface $connection, Factory $entityFactory, NameResolver $nameResolver)
     {
         $this->connection    = $connection;
         $this->entityFactory = $entityFactory;
+        $this->nameResolver  = $nameResolver;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getTable()
+    {
+        return $this->table ?: $this->nameResolver->resolve($this);
     }
 
     /**
@@ -41,25 +65,33 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
      */
     public function get(int $entityId): EntityInterface
     {
-        $table   = $this->getTableName();
-        $results = $this->connection->query()->from($table)->where([$this->primaryKey => $entityId])->get();
-        $result  = (array)array_pop($results);
+        $table   = $this->getTable();
+        $results = $this->connection->query()->select()->from($table)->where([$this->primaryKey => $entityId])->get();
+        $result  = array_pop($results);
 
         if (empty($result)) {
             throw new NotFoundException('Row (ID:%s) not found in `%s` table', [$entityId, $table]);
+        }
+
+        if ($result instanceof EntityInterface) {
+            return $result;
         }
 
         return $this->entityFactory->create($table, $result);
     }
 
     /**
+     * @param int|null $page
+     * @param int|null $pageSize
+     *
      * @return array
      */
-    public function all(): array
+    public function all(int $page = null, int $pageSize = null): array
     {
-        $results = $this->connection->query()->from($this->getTableName())->get();
+        $query   = $this->connection->query()->select()->from($this->getTable());
+        $results = $pageSize ? $query->paginate($page, $pageSize) : $query->get();
 
-        return $this->entityFactory->hydrate($this->getTableName(), $results);
+        return $this->entityFactory->hydrate($this->getTable(), $results);
     }
 
     /**
@@ -73,7 +105,7 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
     public function update(int $entityId, array $value): EntityInterface
     {
         $where = [$this->primaryKey => $entityId];
-        $this->connection->update($this->getTableName(), $value, $where);
+        $this->connection->update($this->getTable(), $value, $where);
 
         return $this->get($entityId);
     }
@@ -86,7 +118,7 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
      */
     public function add(array $value): bool
     {
-        $insert = $this->connection->insert($this->getTableName(), $value);
+        $insert = $this->connection->insert($this->getTable(), $value);
         if (!$insert) {
             throw new RepositoryException('Error occurred while adding a data');
         }
@@ -103,7 +135,7 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
     {
         $where = [$this->primaryKey => $entityId];
 
-        return $this->connection->delete($this->getTableName(), $where);
+        return $this->connection->delete($this->getTable(), $where);
     }
 
     /**
@@ -118,5 +150,13 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
         }
 
         return $lastInsertedId;
+    }
+
+    /**
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->connection->count($this->getTable());
     }
 }

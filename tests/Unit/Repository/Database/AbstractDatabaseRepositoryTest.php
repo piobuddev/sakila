@@ -9,6 +9,7 @@ use Sakila\Exceptions\Repository\RepositoryException;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 use Sakila\Repository\Database\ConnectionInterface;
 use Sakila\Repository\Database\Query\BuilderInterface;
+use Sakila\Repository\Database\Table\SimpleNameResolver;
 use Sakila\Test\AbstractUnitTestCase;
 
 class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
@@ -27,6 +28,7 @@ class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
     {
         $data         = ['foo' => 'bar'];
         $queryBuilder = $this->getMockForAbstractClass(BuilderInterface::class);
+        $queryBuilder->method('select')->willReturnSelf();
         $queryBuilder->method('from')->with('foo')->willReturnSelf();
         $queryBuilder->method('where')->with(['id' => 1])->willReturnSelf();
         $queryBuilder->method('get')->willReturn([$data]);
@@ -47,6 +49,7 @@ class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
     {
         $data         = ['foo' => 'bar'];
         $queryBuilder = $this->getMockForAbstractClass(BuilderInterface::class);
+        $queryBuilder->method('select')->willReturnSelf();
         $queryBuilder->method('from')->with('foo')->willReturnSelf();
         $queryBuilder->method('get')->willReturn($data);
 
@@ -66,6 +69,7 @@ class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
     {
         $data         = ['foo' => 'bar'];
         $queryBuilder = $this->getMockForAbstractClass(BuilderInterface::class);
+        $queryBuilder->method('select')->willReturnSelf();
         $queryBuilder->method('from')->with('foo')->willReturnSelf();
         $queryBuilder->method('where')->with(['id' => 1])->willReturnSelf();
         $queryBuilder->method('get')->willReturn([$data]);
@@ -159,9 +163,11 @@ class AbstractDatabaseRepositoryTest extends AbstractUnitTestCase
      */
     private function getCut($connection, $factory = null)
     {
+        $factory = $factory ?? $this->createMock(Factory::class);
+
         return $this->getMockForAbstractClass(
             AbstractDatabaseRepository::class,
-            [$connection, $factory ?? $this->createMock(Factory::class)],
+            [$connection, $factory, new SimpleNameResolver()],
             'FooRepository'
         );
     }

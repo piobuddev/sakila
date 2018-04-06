@@ -40,4 +40,11 @@ interface ConnectionInterface
      * @return int
      */
     public function lastInsertedId(): int;
+
+    /**
+     * @param string $table
+     *
+     * @return int
+     */
+    public function count(string $table): int;
 }

@@ -5,11 +5,11 @@ namespace Sakila\Repository\Database\Query;
 interface BuilderInterface
 {
     /**
-     * @param array $columns
+     * @param array|null $columns
      *
      * @return \Sakila\Repository\Database\Query\BuilderInterface
      */
-    public function select(array $columns): BuilderInterface;
+    public function select(array $columns = null): BuilderInterface;
 
     /**
      * @param string $table
@@ -40,7 +40,15 @@ interface BuilderInterface
     public function limit(int $limit): BuilderInterface;
 
     /**
-     * @return mixed
+     * @return array
      */
     public function get(): array;
+
+    /**
+     * @param int|null $page
+     * @param int      $pageSize
+     *
+     * @return array
+     */
+    public function paginate(?int $page, int $pageSize): array;
 }

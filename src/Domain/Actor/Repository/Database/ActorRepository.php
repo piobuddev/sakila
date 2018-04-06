@@ -7,5 +7,8 @@ use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class ActorRepository extends AbstractDatabaseRepository implements ActorRepositoryInterface
 {
+    /**
+     * @var string
+     */
     protected $primaryKey = 'actor_id';
 }

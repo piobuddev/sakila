@@ -7,6 +7,11 @@ use Sakila\Entity\EntityInterface;
 interface RepositoryInterface
 {
     /**
+     * @return mixed
+     */
+    public function getTable();
+
+    /**
      * @param int $entityId
      *
      * @return \Sakila\Entity\EntityInterface
@@ -14,9 +19,12 @@ interface RepositoryInterface
     public function get(int $entityId): EntityInterface;
 
     /**
+     * @param int|null $page
+     * @param int|null $pageSize
+     *
      * @return array
      */
-    public function all(): array;
+    public function all(int $page = null, int $pageSize = null): array;
 
     /**
      * @param int   $entityId
@@ -44,4 +52,9 @@ interface RepositoryInterface
      * @return int
      */
     public function lastInsertedId(): int;
+
+    /**
+     * @return int
+     */
+    public function count(): int;
 }
