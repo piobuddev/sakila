@@ -41,6 +41,24 @@ Feature: The actor API's endpoint
       | 6       | Monica    | Bellucci |
 
   @repository
+  Scenario: Fetch all actors with pagination
+    Given the following actor(s) exist:
+      | actor_id | first_name | last_name |
+      | 1        | Anthony    | Hopkins   |
+      | 2        | Audrey     | Tautou    |
+      | 3        | Leonardo   | DiCaprio  |
+      | 4        | Natalie    | Portman   |
+      | 5        | Christian  | Bale      |
+      | 6        | Monica     | Bellucci  |
+    When I send a GET request to "api/actors?page=2&page_size=2"
+    Then the response code should be 200
+    And the JSON response should contain:
+      | actorId | firstName | lastName |
+      | 3       | Leonardo  | DiCaprio |
+      | 4       | Natalie   | Portman  |
+
+
+  @repository
   Scenario: Create a new actor
     Given the following actor(s) exist:
       | actor_id | first_name | last_name |

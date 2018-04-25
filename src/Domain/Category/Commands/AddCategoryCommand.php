@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Sakila\Domain\Actor\Commands;
+namespace Sakila\Domain\Category\Commands;
 
 use phpDocumentor\Reflection\Types\Void_;
 use Sakila\Command\AbstractCommand;
-use Sakila\Domain\Actor\Entity\ActorEntity;
+use Sakila\Domain\Category\Entity\CategoryEntity;
 
-class AddActorCommand extends AbstractCommand
+class AddCategoryCommand extends AbstractCommand
 {
     /**
      * @var array
@@ -18,7 +18,7 @@ class AddActorCommand extends AbstractCommand
      */
     public function __construct(array $attributes)
     {
-        $this->attributes = $this->filterAttributes($attributes, ActorEntity::class);
+        $this->attributes = $this->filterAttributes($attributes, CategoryEntity::class);
     }
 
     /**

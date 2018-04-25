@@ -3,6 +3,7 @@
 namespace Sakila\Domain\Actor\Commands;
 
 use Sakila\Command\AbstractCommand;
+use Sakila\Domain\Actor\Entity\ActorEntity;
 
 class UpdateActorCommand extends AbstractCommand
 {
@@ -23,7 +24,7 @@ class UpdateActorCommand extends AbstractCommand
     public function __construct(int $actorId, array $attributes)
     {
         $this->actorId    = $actorId;
-        $this->attributes = $attributes;
+        $this->attributes = $this->filterAttributes($attributes, ActorEntity::class);
     }
 
     /**

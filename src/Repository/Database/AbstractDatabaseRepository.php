@@ -66,7 +66,8 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
     public function get(int $entityId): EntityInterface
     {
         $table   = $this->getTable();
-        $results = $this->connection->query()->select()->from($table)->where([$this->primaryKey => $entityId])->get();
+        $where   = [$this->primaryKey => $entityId];
+        $results = $this->connection->query()->select()->from($table)->where($where)->get();
         $result  = array_pop($results);
 
         if (empty($result)) {

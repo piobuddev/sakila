@@ -6,4 +6,10 @@ use JsonSerializable;
 
 interface EntityInterface extends JsonSerializable
 {
+    /**
+     * @param array $data
+     *
+     * @return \Sakila\Entity\EntityInterface
+     */
+    public function fill(array $data);
 }

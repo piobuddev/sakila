@@ -3,6 +3,7 @@
 namespace Sakila\Entity;
 
 use Sakila\Domain\Actor\Entity\ActorEntity;
+use Sakila\Domain\Category\Entity\CategoryEntity;
 use Sakila\Exceptions\InvalidArgumentException;
 
 class Factory
@@ -32,6 +33,8 @@ class Factory
         switch ($resource) {
             case 'actor':
                 return $this->builder->build(ActorEntity::class, $arguments);
+            case 'category':
+                return $this->builder->build(CategoryEntity::class, $arguments);
             default:
                 throw new InvalidArgumentException('Invalid resource name `%s`', $resource);
         }
@@ -47,6 +50,10 @@ class Factory
     {
         return array_map(
             function ($item) use ($resource) {
+                if ($item instanceof EntityInterface) {
+                    return $item;
+                }
+
                 return $this->create($resource, (array) $item);
             },
             $items
