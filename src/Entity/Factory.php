@@ -4,6 +4,7 @@ namespace Sakila\Entity;
 
 use Sakila\Domain\Actor\Entity\ActorEntity;
 use Sakila\Domain\Category\Entity\CategoryEntity;
+use Sakila\Domain\Country\Entity\CountryEntity;
 use Sakila\Exceptions\InvalidArgumentException;
 
 class Factory
@@ -35,6 +36,8 @@ class Factory
                 return $this->builder->build(ActorEntity::class, $arguments);
             case 'category':
                 return $this->builder->build(CategoryEntity::class, $arguments);
+            case 'country':
+                return $this->builder->build(CountryEntity::class, $arguments);
             default:
                 throw new InvalidArgumentException('Invalid resource name `%s`', $resource);
         }
