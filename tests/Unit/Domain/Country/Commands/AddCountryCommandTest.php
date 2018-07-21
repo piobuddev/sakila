@@ -3,15 +3,15 @@
 namespace Sakila\Test\Domain\Actor\Commands;
 
 use Sakila\Command\Command;
-use Sakila\Domain\Actor\Commands\AddActorCommand;
+use Sakila\Domain\Country\Commands\AddCountryCommand;
 use Sakila\Test\AbstractUnitTestCase;
 
-class AddActorCommandTest extends AbstractUnitTestCase
+class AddCountryCommandTest extends AbstractUnitTestCase
 {
     public function testReturnsExpectedData()
     {
-        $attributes = ['firstName' => 'Joe', 'lastName' => 'Doe'];
-        $cut        = new AddActorCommand($attributes);
+        $attributes = ['country' => 'Italy'];
+        $cut        = new AddCountryCommand($attributes);
 
         $this->assertInstanceOf(Command::class, $cut);
         $this->assertEquals($attributes, $cut->getAttributes());

@@ -2,7 +2,6 @@
 
 namespace Sakila\Domain\Actor\Commands;
 
-use phpDocumentor\Reflection\Types\Void_;
 use Sakila\Command\AbstractCommand;
 use Sakila\Domain\Actor\Entity\ActorEntity;
 
@@ -18,7 +17,7 @@ class AddActorCommand extends AbstractCommand
      */
     public function __construct(array $attributes)
     {
-        $this->attributes = $this->filterAttributes($attributes, ActorEntity::class);
+        $this->setAttributes($this->filterAttributes($attributes, ActorEntity::class));
     }
 
     /**

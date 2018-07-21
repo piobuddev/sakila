@@ -10,7 +10,7 @@ class UpdateActorCommandTest extends AbstractUnitTestCase
 {
     public function testReturnsExpectedData()
     {
-        $attributes = ['foo' => 'bar'];
+        $attributes = ['firstName' => 'Joe', 'lastName' => 'Doe'];
         $actorId    = 1;
         $cut        = new UpdateActorCommand($actorId, $attributes);
 

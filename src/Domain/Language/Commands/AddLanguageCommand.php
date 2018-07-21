@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Sakila\Domain\Country\Commands;
+namespace Sakila\Domain\Language\Commands;
 
 use Sakila\Command\AbstractCommand;
-use Sakila\Domain\Country\Entity\CountryEntity;
+use Sakila\Domain\Language\Entity\LanguageEntity;
 
-class AddCountryCommand extends AbstractCommand
+class AddLanguageCommand extends AbstractCommand
 {
     /**
      * @var array
@@ -17,7 +17,7 @@ class AddCountryCommand extends AbstractCommand
      */
     public function __construct(array $attributes)
     {
-        $this->setAttributes($this->filterAttributes($attributes, CountryEntity::class));
+        $this->attributes = $this->filterAttributes($attributes, LanguageEntity::class);
     }
 
     /**

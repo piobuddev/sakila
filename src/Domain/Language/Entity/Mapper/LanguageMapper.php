@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Sakila\Domain\Country\Entity\Mapper;
+namespace Sakila\Domain\Language\Entity\Mapper;
 
 use Sakila\Entity\Mapper\AbstractMapper;
 
-class CountryMapper extends AbstractMapper
+class LanguageMapper extends AbstractMapper
 {
     /**
      * @return array
@@ -12,7 +12,7 @@ class CountryMapper extends AbstractMapper
     protected function getMapping(): array
     {
         return [
-            'id' => 'country_id',
+            'id' => 'language_id',
         ];
     }
 }
