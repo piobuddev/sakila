@@ -4,11 +4,10 @@ namespace Sakila\Domain\Language\Commands\Handlers;
 
 use Sakila\Domain\Language\Commands\AddLanguageCommand;
 use Sakila\Domain\Language\Commands\UpdateLanguageCommand;
-use Sakila\Domain\Language\Entity\LanguageEntity;
 use Sakila\Domain\Language\Entity\Mapper\LanguageMapper;
 use Sakila\Domain\Language\Repository\LanguageRepository;
 use Sakila\Domain\Language\Validator\LanguageValidator;
-use Sakila\Exceptions\UnexpectedValueException;
+use Sakila\Entity\EntityInterface;
 
 class LanguageHandler
 {
@@ -43,18 +42,14 @@ class LanguageHandler
      * @param \Sakila\Domain\Language\Commands\AddLanguageCommand $command
      *
      * @return \Sakila\Domain\Language\Entity\LanguageEntity
-     * @throws \Sakila\Exceptions\UnexpectedValueException
      */
-    public function handleAddLanguage(AddLanguageCommand $command): LanguageEntity
+    public function handleAddLanguage(AddLanguageCommand $command): EntityInterface
     {
         $this->validator->validate($command->getAttributes());
         $this->languageRepository->add($this->languageMapper->map($command->getAttributes()));
 
         $languageId = $this->languageRepository->lastInsertedId();
         $language   = $this->languageRepository->get($languageId);
-        if (!$language instanceof LanguageEntity) {
-            throw new UnexpectedValueException();
-        }
 
         return $language;
     }
@@ -64,7 +59,7 @@ class LanguageHandler
      *
      * @return \Sakila\Domain\Language\Entity\LanguageEntity
      */
-    public function handleUpdateLanguage(UpdateLanguageCommand $command): LanguageEntity
+    public function handleUpdateLanguage(UpdateLanguageCommand $command): EntityInterface
     {
         $attributes = array_merge(['language_id' => $command->getLanguageId()], $command->getAttributes());
         $this->validator->validate($attributes);

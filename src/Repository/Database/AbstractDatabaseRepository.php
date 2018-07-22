@@ -3,7 +3,7 @@
 namespace Sakila\Repository\Database;
 
 use Sakila\Entity\EntityInterface;
-use Sakila\Entity\Factory;
+use Sakila\Entity\FactoryInterface;
 use Sakila\Exceptions\Database\NotFoundException;
 use Sakila\Exceptions\Repository\RepositoryException;
 use Sakila\Repository\Database\Table\NameResolver;
@@ -22,7 +22,7 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
     protected $primaryKey = 'id';
 
     /**
-     * @var \Sakila\Entity\Factory
+     * @var \Sakila\Entity\FactoryInterface
      */
     private $entityFactory;
 
@@ -38,11 +38,14 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
 
     /**
      * @param \Sakila\Repository\Database\ConnectionInterface $connection
-     * @param \Sakila\Entity\Factory                          $entityFactory
+     * @param \Sakila\Entity\FactoryInterface                 $entityFactory
      * @param \Sakila\Repository\Database\Table\NameResolver  $nameResolver
      */
-    public function __construct(ConnectionInterface $connection, Factory $entityFactory, NameResolver $nameResolver)
-    {
+    public function __construct(
+        ConnectionInterface $connection,
+        FactoryInterface $entityFactory,
+        NameResolver $nameResolver
+    ) {
         $this->connection    = $connection;
         $this->entityFactory = $entityFactory;
         $this->nameResolver  = $nameResolver;
@@ -61,7 +64,6 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
      *
      * @return \Sakila\Entity\EntityInterface
      * @throws \Sakila\Exceptions\Database\NotFoundException
-     * @throws \Sakila\Exceptions\InvalidArgumentException
      */
     public function get(int $entityId): EntityInterface
     {
@@ -101,7 +103,6 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
      *
      * @return \Sakila\Entity\EntityInterface
      * @throws \Sakila\Exceptions\Database\NotFoundException
-     * @throws \Sakila\Exceptions\InvalidArgumentException
      */
     public function update(int $entityId, array $value): EntityInterface
     {

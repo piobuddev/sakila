@@ -5,9 +5,18 @@ namespace Sakila\Transformer;
 interface Transformer
 {
     /**
-     * @param $entity
+     * @param mixed       $data
+     * @param string|null $transformer
      *
      * @return array
      */
-    public function transform($entity): array;
+    public function item($data, string $transformer = null): array;
+
+    /**
+     * @param mixed       $data
+     * @param string|null $transformer
+     *
+     * @return array
+     */
+    public function collection($data, string $transformer = null): array;
 }

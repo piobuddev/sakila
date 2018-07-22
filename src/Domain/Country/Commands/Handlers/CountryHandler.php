@@ -4,11 +4,10 @@ namespace Sakila\Domain\Country\Commands\Handlers;
 
 use Sakila\Domain\Country\Commands\AddCountryCommand;
 use Sakila\Domain\Country\Commands\UpdateCountryCommand;
-use Sakila\Domain\Country\Entity\CountryEntity;
 use Sakila\Domain\Country\Entity\Mapper\CountryMapper;
 use Sakila\Domain\Country\Repository\CountryRepository;
 use Sakila\Domain\Country\Validator\CountryValidator;
-use Sakila\Exceptions\UnexpectedValueException;
+use Sakila\Entity\EntityInterface;
 
 class CountryHandler
 {
@@ -43,18 +42,14 @@ class CountryHandler
      * @param \Sakila\Domain\Country\Commands\AddCountryCommand $command
      *
      * @return \Sakila\Domain\Country\Entity\CountryEntity
-     * @throws \Sakila\Exceptions\UnexpectedValueException
      */
-    public function handleAddCountry(AddCountryCommand $command): CountryEntity
+    public function handleAddCountry(AddCountryCommand $command): EntityInterface
     {
         $this->validator->validate($command->getAttributes());
         $this->countryRepository->add($this->countryMapper->map($command->getAttributes()));
 
         $countryId = $this->countryRepository->lastInsertedId();
         $country   = $this->countryRepository->get($countryId);
-        if (!$country instanceof CountryEntity) {
-            throw new UnexpectedValueException();
-        }
 
         return $country;
     }
@@ -64,7 +59,7 @@ class CountryHandler
      *
      * @return \Sakila\Domain\Country\Entity\CountryEntity
      */
-    public function handleUpdateCountry(UpdateCountryCommand $command): CountryEntity
+    public function handleUpdateCountry(UpdateCountryCommand $command): EntityInterface
     {
         $attributes = array_merge(['country_id' => $command->getCountryId()], $command->getAttributes());
         $this->validator->validate($attributes);

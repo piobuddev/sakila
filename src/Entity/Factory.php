@@ -4,11 +4,12 @@ namespace Sakila\Entity;
 
 use Sakila\Domain\Actor\Entity\ActorEntity;
 use Sakila\Domain\Category\Entity\CategoryEntity;
+use Sakila\Domain\City\Entity\CityEntity;
 use Sakila\Domain\Country\Entity\CountryEntity;
 use Sakila\Domain\Language\Entity\LanguageEntity;
 use Sakila\Exceptions\InvalidArgumentException;
 
-class Factory
+class Factory implements FactoryInterface
 {
     /**
      * @var \Sakila\Entity\Builder
@@ -41,6 +42,8 @@ class Factory
                 return $this->builder->build(CountryEntity::class, $arguments);
             case 'language':
                 return $this->builder->build(LanguageEntity::class, $arguments);
+            case 'city':
+                return $this->builder->build(CityEntity::class, $arguments);
             default:
                 throw new InvalidArgumentException('Invalid resource name `%s`', $resource);
         }

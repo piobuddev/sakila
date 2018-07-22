@@ -4,11 +4,10 @@ namespace Sakila\Domain\Category\Commands\Handlers;
 
 use Sakila\Domain\Category\Commands\AddCategoryCommand;
 use Sakila\Domain\Category\Commands\UpdateCategoryCommand;
-use Sakila\Domain\Category\Entity\CategoryEntity;
 use Sakila\Domain\Category\Entity\Mapper\CategoryMapper;
 use Sakila\Domain\Category\Repository\CategoryRepository;
 use Sakila\Domain\Category\Validator\CategoryValidator;
-use Sakila\Exceptions\UnexpectedValueException;
+use Sakila\Entity\EntityInterface;
 
 class CategoryHandler
 {
@@ -43,18 +42,14 @@ class CategoryHandler
      * @param \Sakila\Domain\Category\Commands\AddCategoryCommand $command
      *
      * @return \Sakila\Domain\Category\Entity\CategoryEntity
-     * @throws \Sakila\Exceptions\UnexpectedValueException
      */
-    public function handleAddCategory(AddCategoryCommand $command): CategoryEntity
+    public function handleAddCategory(AddCategoryCommand $command): EntityInterface
     {
         $this->validator->validate($command->getAttributes());
         $this->categoryRepository->add($this->categoryMapper->map($command->getAttributes()));
 
         $categoryId = $this->categoryRepository->lastInsertedId();
         $category   = $this->categoryRepository->get($categoryId);
-        if (!$category instanceof CategoryEntity) {
-            throw new UnexpectedValueException();
-        }
 
         return $category;
     }
@@ -63,11 +58,8 @@ class CategoryHandler
      * @param \Sakila\Domain\Category\Commands\UpdateCategoryCommand $command
      *
      * @return \Sakila\Domain\Category\Entity\CategoryEntity
-     * @throws \Sakila\Exceptions\Database\NotFoundException
-     * @throws \Sakila\Exceptions\InvalidArgumentException
-     * @throws \Sakila\Exceptions\SakilaException
      */
-    public function handleUpdateCategory(UpdateCategoryCommand $command): CategoryEntity
+    public function handleUpdateCategory(UpdateCategoryCommand $command): EntityInterface
     {
         $attributes = array_merge(['category_id' => $command->getCategoryId()], $command->getAttributes());
         $this->validator->validate($attributes);
