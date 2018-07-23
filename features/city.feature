@@ -25,6 +25,29 @@ Feature: The city API's endpoint
       | cityId | city | countryId |
       | 3      | Rome | 2         |
 
+  @repository
+  Scenario: Fetch a city data and include a country
+    Given the following country(s) exist:
+      | country_id | country        |
+      | 1          | United Kingdom |
+      | 2          | Italy          |
+      | 3          | Peru           |
+      | 4          | Nepal          |
+      | 5          | France         |
+    And the following city(s) exist:
+      | city_id | city   | country_id |
+      | 1       | London | 1          |
+      | 2       | York   | 1          |
+      | 3       | Rome   | 2          |
+      | 4       | Lyon   | 5          |
+      | 5       | Paris  | 5          |
+    When I send a GET request to "api/cities/3?include=country"
+    Then the response code should be 200
+    And the JSON response should be equal:
+    """
+  {"cityId":3,"city":"Rome","countryId":2,"country":{"countryId":2,"country":"Italy"}}
+    """
+
 
   @repository
   Scenario: Fetch all cities
