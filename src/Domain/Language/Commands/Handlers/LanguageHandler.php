@@ -41,7 +41,8 @@ class LanguageHandler
     /**
      * @param \Sakila\Domain\Language\Commands\AddLanguageCommand $command
      *
-     * @return \Sakila\Domain\Language\Entity\LanguageEntity
+     * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Validation\ValidationException
      */
     public function handleAddLanguage(AddLanguageCommand $command): EntityInterface
     {
@@ -57,7 +58,8 @@ class LanguageHandler
     /**
      * @param \Sakila\Domain\Language\Commands\UpdateLanguageCommand $command
      *
-     * @return \Sakila\Domain\Language\Entity\LanguageEntity
+     * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Validation\ValidationException
      */
     public function handleUpdateLanguage(UpdateLanguageCommand $command): EntityInterface
     {

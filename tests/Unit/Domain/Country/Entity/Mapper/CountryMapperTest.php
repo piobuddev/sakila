@@ -10,8 +10,8 @@ class CountryMapperTest extends AbstractUnitTestCase
     public function testReturnsExpectedMapping()
     {
         $cut        = new CountryMapper();
-        $expected   = ['country_id' => 1, 'name' => 'Japan'];
-        $attributes = ['id' => 1, 'name' => 'Japan'];
+        $expected   = ['country_id' => 1, 'country' => 'Japan'];
+        $attributes = ['id' => 1, 'country' => 'Japan'];
 
         $this->assertEquals($expected, $cut->map($attributes));
     }

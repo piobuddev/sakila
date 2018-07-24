@@ -12,7 +12,8 @@ class LanguageMapper extends AbstractMapper
     protected function getMapping(): array
     {
         return [
-            'id' => 'language_id',
+            'id'   => 'language_id',
+            'name' => 'name',
         ];
     }
 }

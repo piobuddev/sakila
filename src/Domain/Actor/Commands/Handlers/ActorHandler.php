@@ -41,7 +41,8 @@ class ActorHandler
     /**
      * @param \Sakila\Domain\Actor\Commands\AddActorCommand $command
      *
-     * @return \Sakila\Domain\Actor\Entity\ActorEntity
+     * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Validation\ValidationException
      */
     public function handleAddActor(AddActorCommand $command): EntityInterface
     {
@@ -57,7 +58,8 @@ class ActorHandler
     /**
      * @param \Sakila\Domain\Actor\Commands\UpdateActorCommand $command
      *
-     * @return \Sakila\Domain\Actor\Entity\ActorEntity
+     * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Validation\ValidationException
      */
     public function handleUpdateActor(UpdateActorCommand $command): EntityInterface
     {

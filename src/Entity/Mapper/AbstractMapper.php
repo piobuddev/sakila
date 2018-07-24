@@ -17,11 +17,10 @@ abstract class AbstractMapper
     public function map(array $attributes): array
     {
         $mapping = $this->getMapping();
-        $result  = $attributes;
+        $result  = [];
         foreach ($attributes as $key => $value) {
             if (array_key_exists($key, $mapping)) {
                 $result[$mapping[$key]] = $value;
-                unset($result[$key]);
             }
         }
 

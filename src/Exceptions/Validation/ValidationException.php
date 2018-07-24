@@ -7,7 +7,7 @@ use Sakila\Exceptions\SakilaException;
 class ValidationException extends SakilaException
 {
     /**
-     * @param array $messages
+     * @param string $message
      */
     public function __construct(string $message)
     {

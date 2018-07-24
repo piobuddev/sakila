@@ -12,7 +12,8 @@ class CountryMapper extends AbstractMapper
     protected function getMapping(): array
     {
         return [
-            'id' => 'country_id',
+            'id'      => 'country_id',
+            'country' => 'country',
         ];
     }
 }

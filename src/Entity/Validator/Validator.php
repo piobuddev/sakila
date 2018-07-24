@@ -8,6 +8,7 @@ interface Validator
      * @param array $attributes
      *
      * @return mixed
+     * @throws \Sakila\Exceptions\Validation\ValidationException;
      */
     public function validate(array $attributes);
 }

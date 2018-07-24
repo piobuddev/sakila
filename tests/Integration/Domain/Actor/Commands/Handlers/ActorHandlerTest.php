@@ -5,12 +5,10 @@ namespace Sakila\Test\Domain\Actor\Commands\Handlers;
 use Sakila\Domain\Actor\Commands\AddActorCommand;
 use Sakila\Domain\Actor\Commands\Handlers\ActorHandler;
 use Sakila\Domain\Actor\Commands\UpdateActorCommand;
-use Sakila\Domain\Actor\Entity\ActorEntity;
 use Sakila\Domain\Actor\Entity\Mapper\ActorMapper;
 use Sakila\Domain\Actor\Repository\ActorRepository;
 use Sakila\Domain\Actor\Validator\ActorValidator;
 use Sakila\Entity\EntityInterface;
-use Sakila\Exceptions\UnexpectedValueException;
 use Sakila\Test\AbstractIntegrationTestCase;
 
 class ActorHandlerTest extends AbstractIntegrationTestCase
@@ -19,13 +17,13 @@ class ActorHandlerTest extends AbstractIntegrationTestCase
     {
         $command = new AddActorCommand(['foo' => 'bar']);
 
-        $validator = $this->getMockForAbstractClass(ActorValidator::class);
+        $validator = $this->createMock(ActorValidator::class);
         $validator->expects($this->once())->method('validate')->with($command->getAttributes());
 
         $mapper = new ActorMapper();
-        $entity = new ActorEntity();
+        $entity = $this->createMock(EntityInterface::class);
 
-        $repository = $this->getMockForAbstractClass(ActorRepository::class);
+        $repository = $this->createMock(ActorRepository::class);
         $repository->expects($this->once())->method('add')->with($mapper->map($command->getAttributes()));
         $repository->expects($this->once())->method('lastInsertedId')->willReturn(1);
         $repository->expects($this->once())->method('get')->with(1)->willReturn($entity);
@@ -35,39 +33,19 @@ class ActorHandlerTest extends AbstractIntegrationTestCase
         $this->assertEquals($entity, $handler->handleAddActor($command));
     }
 
-    public function testThrowsUnexpectedValueException()
-    {
-        $this->expectException(UnexpectedValueException::class);
-        $command = new AddActorCommand(['foo' => 'bar']);
-
-        $validator = $this->getMockForAbstractClass(ActorValidator::class);
-        $validator->expects($this->once())->method('validate')->with($command->getAttributes());
-
-        $mapper = new ActorMapper();
-        $entity = $this->getMockForAbstractClass(EntityInterface::class);
-
-        $repository = $this->getMockForAbstractClass(ActorRepository::class);
-        $repository->expects($this->once())->method('add')->with($mapper->map($command->getAttributes()));
-        $repository->expects($this->once())->method('lastInsertedId')->willReturn(1);
-        $repository->expects($this->once())->method('get')->with(1)->willReturn($entity);
-
-        $handler = new ActorHandler($mapper, $repository, $validator);
-        $handler->handleAddActor($command);
-    }
-
     public function testUpdateActor()
     {
         $actorId = 1;
         $command = new UpdateActorCommand($actorId, ['foo' => 'bar']);
 
         $attributes = array_merge(['actor_id' => $command->getActorId()], $command->getAttributes());
-        $validator  = $this->getMockForAbstractClass(ActorValidator::class);
+        $validator  = $this->createMock(ActorValidator::class);
         $validator->expects($this->once())->method('validate')->with($attributes);
 
         $mapper = new ActorMapper();
-        $entity = new ActorEntity();
+        $entity = $this->createMock(EntityInterface::class);
 
-        $repository = $this->getMockForAbstractClass(ActorRepository::class);
+        $repository = $this->createMock(ActorRepository::class);
         $repository
             ->expects($this->once())
             ->method('update')

@@ -41,7 +41,8 @@ class CategoryHandler
     /**
      * @param \Sakila\Domain\Category\Commands\AddCategoryCommand $command
      *
-     * @return \Sakila\Domain\Category\Entity\CategoryEntity
+     * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Validation\ValidationException
      */
     public function handleAddCategory(AddCategoryCommand $command): EntityInterface
     {
@@ -57,7 +58,8 @@ class CategoryHandler
     /**
      * @param \Sakila\Domain\Category\Commands\UpdateCategoryCommand $command
      *
-     * @return \Sakila\Domain\Category\Entity\CategoryEntity
+     * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Validation\ValidationException
      */
     public function handleUpdateCategory(UpdateCategoryCommand $command): EntityInterface
     {

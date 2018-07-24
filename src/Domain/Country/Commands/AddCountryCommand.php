@@ -3,7 +3,6 @@
 namespace Sakila\Domain\Country\Commands;
 
 use Sakila\Command\AbstractCommand;
-use Sakila\Domain\Country\Entity\CountryEntity;
 
 class AddCountryCommand extends AbstractCommand
 {
@@ -17,7 +16,7 @@ class AddCountryCommand extends AbstractCommand
      */
     public function __construct(array $attributes)
     {
-        $this->setAttributes($this->filterAttributes($attributes, CountryEntity::class));
+        $this->setAttributes($attributes);
     }
 
     /**

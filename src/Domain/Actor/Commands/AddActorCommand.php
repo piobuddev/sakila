@@ -3,7 +3,6 @@
 namespace Sakila\Domain\Actor\Commands;
 
 use Sakila\Command\AbstractCommand;
-use Sakila\Domain\Actor\Entity\ActorEntity;
 
 class AddActorCommand extends AbstractCommand
 {
@@ -17,7 +16,7 @@ class AddActorCommand extends AbstractCommand
      */
     public function __construct(array $attributes)
     {
-        $this->setAttributes($this->filterAttributes($attributes, ActorEntity::class));
+        $this->setAttributes($attributes);
     }
 
     /**

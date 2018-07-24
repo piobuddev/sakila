@@ -4,12 +4,10 @@ namespace Sakila\Domain\City\Commands\Handlers;
 
 use Sakila\Domain\City\Commands\AddCityCommand;
 use Sakila\Domain\City\Commands\UpdateCityCommand;
-use Sakila\Domain\City\Entity\CityEntity;
 use Sakila\Domain\City\Entity\Mapper\CityMapper;
 use Sakila\Domain\City\Repository\CityRepository;
 use Sakila\Domain\City\Validator\CityValidator;
 use Sakila\Entity\EntityInterface;
-use Sakila\Exceptions\UnexpectedValueException;
 
 class CityHandler
 {
@@ -44,6 +42,7 @@ class CityHandler
      * @param \Sakila\Domain\City\Commands\AddCityCommand $command
      *
      * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Validation\ValidationException
      */
     public function handleAddCity(AddCityCommand $command): EntityInterface
     {
@@ -60,6 +59,7 @@ class CityHandler
      * @param \Sakila\Domain\City\Commands\UpdateCityCommand $command
      *
      * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Validation\ValidationException
      */
     public function handleUpdateCity(UpdateCityCommand $command): EntityInterface
     {

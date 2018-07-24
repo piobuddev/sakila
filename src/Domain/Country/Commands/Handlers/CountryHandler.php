@@ -41,7 +41,8 @@ class CountryHandler
     /**
      * @param \Sakila\Domain\Country\Commands\AddCountryCommand $command
      *
-     * @return \Sakila\Domain\Country\Entity\CountryEntity
+     * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Validation\ValidationException
      */
     public function handleAddCountry(AddCountryCommand $command): EntityInterface
     {
@@ -57,7 +58,8 @@ class CountryHandler
     /**
      * @param \Sakila\Domain\Country\Commands\UpdateCountryCommand $command
      *
-     * @return \Sakila\Domain\Country\Entity\CountryEntity
+     * @return \Sakila\Entity\EntityInterface
+     * @throws \Sakila\Exceptions\Validation\ValidationException
      */
     public function handleUpdateCountry(UpdateCountryCommand $command): EntityInterface
     {

@@ -3,7 +3,6 @@
 namespace Sakila\Domain\Category\Commands;
 
 use Sakila\Command\AbstractCommand;
-use Sakila\Domain\Category\Entity\CategoryEntity;
 
 class UpdateCategoryCommand extends AbstractCommand
 {
@@ -23,8 +22,8 @@ class UpdateCategoryCommand extends AbstractCommand
      */
     public function __construct(int $categoryId, array $attributes)
     {
-        $this->categoryId    = $categoryId;
-        $this->attributes = $this->filterAttributes($attributes, CategoryEntity::class);
+        $this->categoryId = $categoryId;
+        $this->attributes = $attributes;
     }
 
     /**

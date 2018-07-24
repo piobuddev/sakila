@@ -3,7 +3,6 @@
 namespace Sakila\Domain\Language\Commands;
 
 use Sakila\Command\AbstractCommand;
-use Sakila\Domain\Language\Entity\LanguageEntity;
 
 class AddLanguageCommand extends AbstractCommand
 {
@@ -17,7 +16,7 @@ class AddLanguageCommand extends AbstractCommand
      */
     public function __construct(array $attributes)
     {
-        $this->attributes = $this->filterAttributes($attributes, LanguageEntity::class);
+        $this->attributes = $attributes;
     }
 
     /**

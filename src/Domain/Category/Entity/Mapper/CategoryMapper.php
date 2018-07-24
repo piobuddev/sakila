@@ -12,7 +12,8 @@ class CategoryMapper extends AbstractMapper
     protected function getMapping(): array
     {
         return [
-            'id' => 'category_id',
+            'id'   => 'category_id',
+            'name' => 'name',
         ];
     }
 }

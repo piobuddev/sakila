@@ -3,7 +3,6 @@
 namespace Sakila\Domain\City\Commands;
 
 use Sakila\Command\AbstractCommand;
-use Sakila\Domain\City\Entity\CityEntity;
 
 class AddCityCommand extends AbstractCommand
 {
@@ -17,7 +16,7 @@ class AddCityCommand extends AbstractCommand
      */
     public function __construct(array $attributes)
     {
-        $this->attributes = $this->filterAttributes($attributes, CityEntity::class);
+        $this->attributes = $attributes;
     }
 
     /**

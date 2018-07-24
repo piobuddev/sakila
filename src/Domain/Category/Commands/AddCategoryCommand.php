@@ -2,9 +2,7 @@
 
 namespace Sakila\Domain\Category\Commands;
 
-use phpDocumentor\Reflection\Types\Void_;
 use Sakila\Command\AbstractCommand;
-use Sakila\Domain\Category\Entity\CategoryEntity;
 
 class AddCategoryCommand extends AbstractCommand
 {
@@ -18,7 +16,7 @@ class AddCategoryCommand extends AbstractCommand
      */
     public function __construct(array $attributes)
     {
-        $this->attributes = $this->filterAttributes($attributes, CategoryEntity::class);
+        $this->setAttributes($attributes);
     }
 
     /**

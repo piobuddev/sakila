@@ -13,6 +13,7 @@ class CityMapper extends AbstractMapper
     {
         return [
             'id'        => 'city_id',
+            'city'      => 'city',
             'countryId' => 'country_id',
         ];
     }
