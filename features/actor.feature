@@ -3,8 +3,7 @@ Feature: The actor API's endpoint
   as an API's client
   I want to be able to perform CRUD operations with the HTTP request
 
-  @repository
-  Scenario: Fetch an actor data
+  Background:
     Given the following actor(s) exist:
       | actor_id | first_name | last_name |
       | 1        | Anthony    | Hopkins   |
@@ -13,6 +12,9 @@ Feature: The actor API's endpoint
       | 4        | Natalie    | Portman   |
       | 5        | Christian  | Bale      |
       | 6        | Monica     | Bellucci  |
+
+  @repository
+  Scenario: Fetch an actor data
     When I send a GET request to "api/actors/1"
     Then the response code should be 200
     And the JSON response should contain:
@@ -21,14 +23,6 @@ Feature: The actor API's endpoint
 
   @repository
   Scenario: Fetch all actors
-    Given the following actor(s) exist:
-      | actor_id | first_name | last_name |
-      | 1        | Anthony    | Hopkins   |
-      | 2        | Audrey     | Tautou    |
-      | 3        | Leonardo   | DiCaprio  |
-      | 4        | Natalie    | Portman   |
-      | 5        | Christian  | Bale      |
-      | 6        | Monica     | Bellucci  |
     When I send a GET request to "api/actors"
     Then the response code should be 200
     And the JSON response should contain:
@@ -42,14 +36,6 @@ Feature: The actor API's endpoint
 
   @repository
   Scenario: Fetch all actors with pagination
-    Given the following actor(s) exist:
-      | actor_id | first_name | last_name |
-      | 1        | Anthony    | Hopkins   |
-      | 2        | Audrey     | Tautou    |
-      | 3        | Leonardo   | DiCaprio  |
-      | 4        | Natalie    | Portman   |
-      | 5        | Christian  | Bale      |
-      | 6        | Monica     | Bellucci  |
     When I send a GET request to "api/actors?page=2&page_size=2"
     Then the response code should be 200
     And the JSON response should contain:
@@ -60,14 +46,6 @@ Feature: The actor API's endpoint
 
   @repository
   Scenario: Create a new actor
-    Given the following actor(s) exist:
-      | actor_id | first_name | last_name |
-      | 1        | Anthony    | Hopkins   |
-      | 2        | Audrey     | Tautou    |
-      | 3        | Leonardo   | DiCaprio  |
-      | 4        | Natalie    | Portman   |
-      | 5        | Christian  | Bale      |
-      | 6        | Monica     | Bellucci  |
     When I send a POST request to "api/actors":
       | firstName | lastName |
       | Tom       | Hardy    |
@@ -81,14 +59,6 @@ Feature: The actor API's endpoint
 
   @repository
   Scenario: Update an existing actor
-    Given the following actor(s) exist:
-      | actor_id | first_name | last_name |
-      | 1        | Anthony    | Hopkins   |
-      | 2        | Audrey     | Tautou    |
-      | 3        | Leonardo   | DiCaprio  |
-      | 4        | Natalie    | Portman   |
-      | 5        | Christian  | Bale      |
-      | 6        | Monica     | Belluci   |
     When I send a PUT request to "api/actors/6":
       | firstName | lastName |
       | Monica    | Bellucci |
@@ -107,14 +77,6 @@ Feature: The actor API's endpoint
 
   @repository
   Scenario: Remove an actor
-    Given the following actor(s) exist:
-      | actor_id | first_name | last_name |
-      | 1        | Anthony    | Hopkins   |
-      | 2        | Audrey     | Tautou    |
-      | 3        | Leonardo   | DiCaprio  |
-      | 4        | Natalie    | Portman   |
-      | 5        | Christian  | Bale      |
-      | 6        | Monica     | Belluci   |
     When I send a DELETE request to "api/actors/3"
     Then the response code should be 200
     And the following actor should not be saved:
