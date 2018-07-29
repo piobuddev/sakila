@@ -43,7 +43,6 @@ Feature: The actor API's endpoint
       | 3       | Leonardo  | DiCaprio |
       | 4       | Natalie   | Portman  |
 
-
   @repository
   Scenario: Create a new actor
     When I send a POST request to "api/actors":

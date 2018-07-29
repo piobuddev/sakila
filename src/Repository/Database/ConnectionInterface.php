@@ -47,4 +47,11 @@ interface ConnectionInterface
      * @return int
      */
     public function count(string $table): int;
+
+    /**
+     * @param \Closure $callback
+     *
+     * @return mixed
+     */
+    public function transaction(\Closure $callback);
 }
