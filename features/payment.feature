@@ -100,8 +100,8 @@ Feature: The payment API's endpoint
   @repository @disableForeignKeys
   Scenario: Update an existing payment
     When I send a PUT request to "api/payments/5":
-      | amount |
-      | 12:00  |
+      | paymentId | customerId | staffId | rentalId | amount | paymentDate         |
+      | 5         | 4          | 1       | 5        | 12.00  | 2018-11-29 12:55:00 |
     Then the response code should be 200
     And the JSON response should contain:
       | paymentId | customerId | staffId | rentalId | amount | paymentDate         |

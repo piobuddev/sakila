@@ -74,8 +74,8 @@ Feature: The store API's endpoint
   @repository @disableForeignKeys
   Scenario: Update an existing staff
     When I send a PUT request to "api/staff/4":
-      | addressId |
-      | 5         |
+      | staffId | firstName | lastName | addressId | storeId | username | active |
+      | 4       | Jo        | Doe      | 5         | 4       | jodoe    | 1      |
     Then the response code should be 200
     And the JSON response should contain:
       | staffId | firstName | lastName | addressId | storeId | username | password | email | active |

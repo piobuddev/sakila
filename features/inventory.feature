@@ -81,8 +81,8 @@ Feature: The store API's endpoint
   @repository @disableForeignKeys
   Scenario: Update an existing inventory
     When I send a PUT request to "api/inventory/4":
-      | filmId |
-      | 5      |
+      | filmId | storeId |
+      | 5      | 1       |
     Then the response code should be 200
     And the JSON response should contain:
       | inventoryId | storeId | filmId |

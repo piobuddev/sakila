@@ -105,8 +105,8 @@ Feature: The rental API's endpoint
   @repository @disableForeignKeys
   Scenario: Update an existing rental
     When I send a PUT request to "api/rentals/5":
-      | staffId |
-      | 2       |
+      | rentalId | rentalDate          | inventoryId | customerId | returnDate          | staffId |
+      | 5        | 2018-05-24 22:53:30 | 5           | 4          | 2018-10-24 22:53:30 | 2       |
     Then the response code should be 200
     And the JSON response should contain:
       | rentalId | rentalDate          | inventoryId | customerId | returnDate          | staffId |

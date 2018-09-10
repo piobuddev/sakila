@@ -71,8 +71,8 @@ Feature: The store API's endpoint
   @repository @disableForeignKeys
   Scenario: Update an existing actor
     When I send a PUT request to "api/stores/4":
-      | addressId |
-      | 5         |
+      | storeId | managerStaffId | addressId |
+      | 4       | 4              | 5         |
     Then the response code should be 200
     And the JSON response should contain:
       | storeId | managerStaffId | addressId |

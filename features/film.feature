@@ -112,8 +112,8 @@ Feature: The film API's endpoint
   @repository
   Scenario: Update an existing film
     When I send a PUT request to "api/films/4":
-      | releaseYear |
-      | 2005        |
+      | releaseYear | title            | languageId |
+      | 2005        | AFFAIR PREJUDICE | 1          |
     Then the response code should be 200
     And the JSON response should contain:
       | filmId | title            | description                                                                                  | releaseYear | languageId | originalLanguageId | rentalDuration | rentalRate | length | replacementCost | rating | specialFeatures |

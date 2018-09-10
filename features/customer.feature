@@ -73,8 +73,8 @@ Feature: The customer API's endpoint
   @repository @disableForeignKeys
   Scenario: Update an existing customer
     When I send a PUT request to "api/customers/4":
-      | active |
-      | 0      |
+      | storeId | firstName | lastName | addressId | active |
+      | 1       | Jo        | Doe      | 2         | 0      |
     Then the response code should be 200
     And the JSON response should contain:
       | customerId | storeId | firstName | lastName | email                | addressId | createDate          | active |

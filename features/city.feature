@@ -74,8 +74,8 @@ Feature: The city API's endpoint
   @repository
   Scenario: Update an existing city
     When I send a PUT request to "api/cities/4":
-      | city |
-      | Lyon |
+      | city | countryId |
+      | Lyon | 5         |
     Then the response code should be 200
     And the JSON response should contain:
       | cityId | city | countryId |
