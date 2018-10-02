@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Sakila\Domain\Actor\Commands;
+namespace Sakila\Domain\Actor\Service\Request;
 
 use Sakila\Command\AbstractCommand;
 
-class UpdateActorCommand extends AbstractCommand
+class UpdateActorRequest extends AbstractCommand
 {
     /**
      * @var int

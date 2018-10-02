@@ -8,15 +8,24 @@ interface Transformer
      * @param mixed       $data
      * @param string|null $transformer
      *
-     * @return array
+     * @return mixed
      */
-    public function item($data, string $transformer = null): array;
+    public function item($data, string $transformer = null);
 
     /**
      * @param mixed       $data
      * @param string|null $transformer
+     * @param int|null    $page
+     * @param int|null    $pageSize
+     * @param int|null    $total
      *
-     * @return array
+     * @return mixed
      */
-    public function collection($data, string $transformer = null): array;
+    public function collection(
+        $data,
+        string $transformer = null,
+        int $page = null,
+        int $pageSize = null,
+        int $total = null
+    );
 }
