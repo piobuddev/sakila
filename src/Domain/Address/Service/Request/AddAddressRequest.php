@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Sakila\Domain\Address\Commands;
+namespace Sakila\Domain\Address\Service\Request;
 
 use Sakila\Command\AbstractCommand;
 
-class AddAddressCommand extends AbstractCommand
+class AddAddressRequest extends AbstractCommand
 {
     /**
      * @var array
