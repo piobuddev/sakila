@@ -20,7 +20,12 @@ class RemoveCityService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveCityRequest $removeCityRequest)
+    /**
+     * @param \Sakila\Domain\City\Service\Request\RemoveCityRequest $removeCityRequest
+     *
+     * @return bool
+     */
+    public function execute(RemoveCityRequest $removeCityRequest): bool
     {
         return $this->repository->remove($removeCityRequest->getCityId());
     }

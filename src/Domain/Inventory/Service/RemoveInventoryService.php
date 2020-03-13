@@ -20,7 +20,12 @@ class RemoveInventoryService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveInventoryRequest $removeInventoryRequest)
+    /**
+     * @param \Sakila\Domain\Inventory\Service\Request\RemoveInventoryRequest $removeInventoryRequest
+     *
+     * @return bool
+     */
+    public function execute(RemoveInventoryRequest $removeInventoryRequest): bool
     {
         return $this->repository->remove($removeInventoryRequest->getInventoryId());
     }

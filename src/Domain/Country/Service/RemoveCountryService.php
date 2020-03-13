@@ -20,7 +20,12 @@ class RemoveCountryService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveCountryRequest $removeCountryRequest)
+    /**
+     * @param \Sakila\Domain\Country\Service\Request\RemoveCountryRequest $removeCountryRequest
+     *
+     * @return bool
+     */
+    public function execute(RemoveCountryRequest $removeCountryRequest): bool
     {
         return $this->repository->remove($removeCountryRequest->getCountryId());
     }

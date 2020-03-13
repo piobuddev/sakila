@@ -20,7 +20,12 @@ class RemoveCategoryService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveCategoryRequest $removeCategoryRequest)
+    /**
+     * @param \Sakila\Domain\Category\Service\Request\RemoveCategoryRequest $removeCategoryRequest
+     *
+     * @return bool
+     */
+    public function execute(RemoveCategoryRequest $removeCategoryRequest): bool
     {
         return $this->repository->remove($removeCategoryRequest->getCategoryId());
     }

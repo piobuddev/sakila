@@ -20,7 +20,12 @@ class RemoveRentalService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveRentalRequest $removeRentalRequest)
+    /**
+     * @param \Sakila\Domain\Rental\Service\Request\RemoveRentalRequest $removeRentalRequest
+     *
+     * @return bool
+     */
+    public function execute(RemoveRentalRequest $removeRentalRequest): bool
     {
         return $this->repository->remove($removeRentalRequest->getRentalId());
     }

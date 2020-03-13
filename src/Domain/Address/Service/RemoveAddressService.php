@@ -20,7 +20,12 @@ class RemoveAddressService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveAddressRequest $removeAddressRequest)
+    /**
+     * @param \Sakila\Domain\Address\Service\Request\RemoveAddressRequest $removeAddressRequest
+     *
+     * @return bool
+     */
+    public function execute(RemoveAddressRequest $removeAddressRequest): bool
     {
         return $this->repository->remove($removeAddressRequest->getAddressId());
     }

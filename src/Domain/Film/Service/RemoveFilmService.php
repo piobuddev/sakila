@@ -20,7 +20,12 @@ class RemoveFilmService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveFilmRequest $removeFilmRequest)
+    /**
+     * @param \Sakila\Domain\Film\Service\Request\RemoveFilmRequest $removeFilmRequest
+     *
+     * @return bool
+     */
+    public function execute(RemoveFilmRequest $removeFilmRequest): bool
     {
         return $this->repository->remove($removeFilmRequest->getFilmId());
     }

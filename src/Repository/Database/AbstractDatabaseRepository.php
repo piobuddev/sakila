@@ -129,7 +129,7 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
     }
 
     /**
-     * @param $entityId
+     * @param int $entityId
      *
      * @return bool
      */

@@ -20,7 +20,12 @@ class RemoveActorService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveActorRequest $removeActorRequest)
+    /**
+     * @param \Sakila\Domain\Actor\Service\Request\RemoveActorRequest $removeActorRequest
+     *
+     * @return bool
+     */
+    public function execute(RemoveActorRequest $removeActorRequest): bool
     {
         return $this->repository->remove($removeActorRequest->getActorId());
     }

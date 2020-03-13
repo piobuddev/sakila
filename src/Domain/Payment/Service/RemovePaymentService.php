@@ -20,7 +20,12 @@ class RemovePaymentService
         $this->repository = $repository;
     }
 
-    public function execute(RemovePaymentRequest $removePaymentRequest)
+    /**
+     * @param \Sakila\Domain\Payment\Service\Request\RemovePaymentRequest $removePaymentRequest
+     *
+     * @return bool
+     */
+    public function execute(RemovePaymentRequest $removePaymentRequest): bool
     {
         return $this->repository->remove($removePaymentRequest->getPaymentId());
     }

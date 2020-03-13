@@ -20,7 +20,12 @@ class RemoveCustomerService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveCustomerRequest $removeCustomerRequest)
+    /**
+     * @param \Sakila\Domain\Customer\Service\Request\RemoveCustomerRequest $removeCustomerRequest
+     *
+     * @return bool
+     */
+    public function execute(RemoveCustomerRequest $removeCustomerRequest): bool
     {
         return $this->repository->remove($removeCustomerRequest->getCustomerId());
     }

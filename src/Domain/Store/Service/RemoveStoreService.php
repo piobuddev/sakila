@@ -20,7 +20,12 @@ class RemoveStoreService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveStoreRequest $removeStoreRequest)
+    /**
+     * @param \Sakila\Domain\Store\Service\Request\RemoveStoreRequest $removeStoreRequest
+     *
+     * @return bool
+     */
+    public function execute(RemoveStoreRequest $removeStoreRequest): bool
     {
         return $this->repository->remove($removeStoreRequest->getStoreId());
     }

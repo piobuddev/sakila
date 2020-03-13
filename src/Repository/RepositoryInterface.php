@@ -30,7 +30,7 @@ interface RepositoryInterface
      * @param int   $entityId
      * @param array $value
      *
-     * @return mixed
+     * @return \Sakila\Entity\EntityInterface
      */
     public function update(int $entityId, array $value): EntityInterface;
 

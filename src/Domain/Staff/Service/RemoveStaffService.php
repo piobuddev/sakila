@@ -20,7 +20,12 @@ class RemoveStaffService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveStaffRequest $removeStaffRequest)
+    /**
+     * @param \Sakila\Domain\Staff\Service\Request\RemoveStaffRequest $removeStaffRequest
+     *
+     * @return bool
+     */
+    public function execute(RemoveStaffRequest $removeStaffRequest): bool
     {
         return $this->repository->remove($removeStaffRequest->getStaffId());
     }
