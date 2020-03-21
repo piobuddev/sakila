@@ -16,7 +16,7 @@ In your `composer.json` file:
                 "url": "https://github.com/piobuddev/sakila.git"
             }
         ],
-        "require-dev": {
+        "require": {
             "piobuddev/sakila": "*"
         }
     }
