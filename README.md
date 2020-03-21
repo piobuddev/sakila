@@ -17,7 +17,7 @@ In your `composer.json` file:
             }
         ],
         "require": {
-            "piobuddev/sakila": "*"
+            "piobuddev/sakila": "^1.0.0"
         }
     }
 ```
