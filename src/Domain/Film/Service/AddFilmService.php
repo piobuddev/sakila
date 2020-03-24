@@ -4,20 +4,20 @@ namespace Sakila\Domain\Film\Service;
 
 use Sakila\Domain\Film\Entity\Mapper\FilmMapper;
 use Sakila\Domain\Film\Entity\Transformer\FilmTransformerInterface;
-use Sakila\Domain\Film\Repository\FilmRepository;
+use Sakila\Domain\Film\Repository\FilmRepositoryInterface;
 use Sakila\Domain\Film\Service\Request\AddFilmRequest;
-use Sakila\Domain\Film\Validator\FilmValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Film\Validator\FilmValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class AddFilmService
 {
     /**
-     * @var \Sakila\Domain\Film\Validator\FilmValidator
+     * @var \Sakila\Domain\Film\Validator\FilmValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Film\Repository\FilmRepository
+     * @var \Sakila\Domain\Film\Repository\FilmRepositoryInterface
      */
     private $filmRepository;
 
@@ -27,21 +27,21 @@ class AddFilmService
     private $filmMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Film\Validator\FilmValidator   $validator
-     * @param \Sakila\Domain\Film\Repository\FilmRepository $repository
-     * @param \Sakila\Domain\Film\Entity\Mapper\FilmMapper  $filmMapper
-     * @param \Sakila\Transformer\Transformer               $transformer
+     * @param \Sakila\Domain\Film\Validator\FilmValidatorInterface   $validator
+     * @param \Sakila\Domain\Film\Repository\FilmRepositoryInterface $repository
+     * @param \Sakila\Domain\Film\Entity\Mapper\FilmMapper           $filmMapper
+     * @param \Sakila\Transformer\TransformerInterface               $transformer
      */
     public function __construct(
-        FilmValidator $validator,
-        FilmRepository $repository,
+        FilmValidatorInterface $validator,
+        FilmRepositoryInterface $repository,
         FilmMapper $filmMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator      = $validator;
         $this->filmRepository = $repository;

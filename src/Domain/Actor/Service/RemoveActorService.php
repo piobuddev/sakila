@@ -2,20 +2,20 @@
 
 namespace Sakila\Domain\Actor\Service;
 
-use Sakila\Domain\Actor\Repository\ActorRepository;
+use Sakila\Domain\Actor\Repository\ActorRepositoryInterface;
 use Sakila\Domain\Actor\Service\Request\RemoveActorRequest;
 
 class RemoveActorService
 {
     /**
-     * @var \Sakila\Domain\Actor\Repository\ActorRepository
+     * @var \Sakila\Domain\Actor\Repository\ActorRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param \Sakila\Domain\Actor\Repository\ActorRepository $repository
+     * @param \Sakila\Domain\Actor\Repository\ActorRepositoryInterface $repository
      */
-    public function __construct(ActorRepository $repository)
+    public function __construct(ActorRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

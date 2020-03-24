@@ -3,29 +3,29 @@
 namespace Sakila\Domain\Inventory\Service;
 
 use Sakila\Domain\Inventory\Entity\Transformer\InventoryTransformerInterface;
-use Sakila\Domain\Inventory\Repository\InventoryRepository;
+use Sakila\Domain\Inventory\Repository\InventoryRepositoryInterface;
 use Sakila\Domain\Inventory\Service\Request\ShowInventoriesRequest;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class ShowInventoriesService
 {
     /**
-     * @var \Sakila\Domain\Inventory\Repository\InventoryRepository
+     * @var \Sakila\Domain\Inventory\Repository\InventoryRepositoryInterface
      */
     private $repository;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Inventory\Repository\InventoryRepository $repository
-     * @param \Sakila\Transformer\Transformer                         $transformer
+     * @param \Sakila\Domain\Inventory\Repository\InventoryRepositoryInterface $repository
+     * @param \Sakila\Transformer\TransformerInterface                         $transformer
      */
     public function __construct(
-        InventoryRepository $repository,
-        Transformer $transformer
+        InventoryRepositoryInterface $repository,
+        TransformerInterface $transformer
     ) {
         $this->repository  = $repository;
         $this->transformer = $transformer;

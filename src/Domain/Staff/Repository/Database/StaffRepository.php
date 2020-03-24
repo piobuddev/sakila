@@ -2,7 +2,7 @@
 
 namespace Sakila\Domain\Staff\Repository\Database;
 
-use Sakila\Domain\Staff\Repository\StaffRepository as StaffRepositoryInterface;
+use Sakila\Domain\Staff\Repository\StaffRepositoryInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class StaffRepository extends AbstractDatabaseRepository implements StaffRepositoryInterface

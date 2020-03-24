@@ -2,7 +2,7 @@
 
 namespace Sakila\Test\Domain\Staff\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 use Sakila\Domain\Staff\Service\Request\UpdateStaffRequest;
 use Sakila\Test\AbstractUnitTestCase;
 
@@ -14,7 +14,7 @@ class UpdateStaffRequestTest extends AbstractUnitTestCase
         $staffId    = 1;
         $cut        = new UpdateStaffRequest($staffId, $attributes);
 
-        $this->assertInstanceOf(Command::class, $cut);
+        $this->assertInstanceOf(CommandInterface::class, $cut);
         $this->assertEquals($attributes, $cut->getAttributes());
         $this->assertEquals($staffId, $cut->getStaffId());
     }

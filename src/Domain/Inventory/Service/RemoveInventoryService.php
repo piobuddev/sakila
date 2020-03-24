@@ -2,20 +2,20 @@
 
 namespace Sakila\Domain\Inventory\Service;
 
-use Sakila\Domain\Inventory\Repository\InventoryRepository;
+use Sakila\Domain\Inventory\Repository\InventoryRepositoryInterface;
 use Sakila\Domain\Inventory\Service\Request\RemoveInventoryRequest;
 
 class RemoveInventoryService
 {
     /**
-     * @var \Sakila\Domain\Inventory\Repository\InventoryRepository
+     * @var \Sakila\Domain\Inventory\Repository\InventoryRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param \Sakila\Domain\Inventory\Repository\InventoryRepository $repository
+     * @param \Sakila\Domain\Inventory\Repository\InventoryRepositoryInterface $repository
      */
-    public function __construct(InventoryRepository $repository)
+    public function __construct(InventoryRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

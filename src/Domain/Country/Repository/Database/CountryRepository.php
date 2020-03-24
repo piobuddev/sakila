@@ -2,7 +2,7 @@
 
 namespace Sakila\Domain\Country\Repository\Database;
 
-use Sakila\Domain\Country\Repository\CountryRepository as CountryRepositoryInterface;
+use Sakila\Domain\Country\Repository\CountryRepositoryInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class CountryRepository extends AbstractDatabaseRepository implements CountryRepositoryInterface

@@ -4,20 +4,20 @@ namespace Sakila\Domain\City\Service;
 
 use Sakila\Domain\City\Entity\Mapper\CityMapper;
 use Sakila\Domain\City\Entity\Transformer\CityTransformerInterface;
-use Sakila\Domain\City\Repository\CityRepository;
+use Sakila\Domain\City\Repository\CityRepositoryInterface;
 use Sakila\Domain\City\Service\Request\AddCityRequest;
-use Sakila\Domain\City\Validator\CityValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\City\Validator\CityValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class AddCityService
 {
     /**
-     * @var \Sakila\Domain\City\Validator\CityValidator
+     * @var \Sakila\Domain\City\Validator\CityValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\City\Repository\CityRepository
+     * @var \Sakila\Domain\City\Repository\CityRepositoryInterface
      */
     private $cityRepository;
 
@@ -27,21 +27,21 @@ class AddCityService
     private $cityMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\City\Validator\CityValidator   $validator
-     * @param \Sakila\Domain\City\Repository\CityRepository $repository
-     * @param \Sakila\Domain\City\Entity\Mapper\CityMapper  $cityMapper
-     * @param \Sakila\Transformer\Transformer               $transformer
+     * @param \Sakila\Domain\City\Validator\CityValidatorInterface   $validator
+     * @param \Sakila\Domain\City\Repository\CityRepositoryInterface $repository
+     * @param \Sakila\Domain\City\Entity\Mapper\CityMapper           $cityMapper
+     * @param \Sakila\Transformer\TransformerInterface               $transformer
      */
     public function __construct(
-        CityValidator $validator,
-        CityRepository $repository,
+        CityValidatorInterface $validator,
+        CityRepositoryInterface $repository,
         CityMapper $cityMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator      = $validator;
         $this->cityRepository = $repository;

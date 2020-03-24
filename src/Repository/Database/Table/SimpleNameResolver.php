@@ -4,7 +4,7 @@ namespace Sakila\Repository\Database\Table;
 
 use Sakila\Repository\RepositoryInterface;
 
-class SimpleNameResolver implements NameResolver
+class SimpleNameResolver implements NameResolverInterface
 {
     /**
      * @param \Sakila\Repository\RepositoryInterface $repository

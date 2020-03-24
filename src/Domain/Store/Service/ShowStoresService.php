@@ -3,29 +3,29 @@
 namespace Sakila\Domain\Store\Service;
 
 use Sakila\Domain\Store\Entity\Transformer\StoreTransformerInterface;
-use Sakila\Domain\Store\Repository\StoreRepository;
+use Sakila\Domain\Store\Repository\StoreRepositoryInterface;
 use Sakila\Domain\Store\Service\Request\ShowStoresRequest;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class ShowStoresService
 {
     /**
-     * @var \Sakila\Domain\Store\Repository\StoreRepository
+     * @var \Sakila\Domain\Store\Repository\StoreRepositoryInterface
      */
     private $repository;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Store\Repository\StoreRepository $repository
-     * @param \Sakila\Transformer\Transformer                 $transformer
+     * @param \Sakila\Domain\Store\Repository\StoreRepositoryInterface $repository
+     * @param \Sakila\Transformer\TransformerInterface                 $transformer
      */
     public function __construct(
-        StoreRepository $repository,
-        Transformer $transformer
+        StoreRepositoryInterface $repository,
+        TransformerInterface $transformer
     ) {
         $this->repository  = $repository;
         $this->transformer = $transformer;

@@ -2,20 +2,20 @@
 
 namespace Sakila\Domain\Category\Service;
 
-use Sakila\Domain\Category\Repository\CategoryRepository;
+use Sakila\Domain\Category\Repository\CategoryRepositoryInterface;
 use Sakila\Domain\Category\Service\Request\RemoveCategoryRequest;
 
 class RemoveCategoryService
 {
     /**
-     * @var \Sakila\Domain\Category\Repository\CategoryRepository
+     * @var \Sakila\Domain\Category\Repository\CategoryRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param \Sakila\Domain\Category\Repository\CategoryRepository $repository
+     * @param \Sakila\Domain\Category\Repository\CategoryRepositoryInterface $repository
      */
-    public function __construct(CategoryRepository $repository)
+    public function __construct(CategoryRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

@@ -4,20 +4,20 @@ namespace Sakila\Domain\Inventory\Service;
 
 use Sakila\Domain\Inventory\Entity\Mapper\InventoryMapper;
 use Sakila\Domain\Inventory\Entity\Transformer\InventoryTransformerInterface;
-use Sakila\Domain\Inventory\Repository\InventoryRepository;
+use Sakila\Domain\Inventory\Repository\InventoryRepositoryInterface;
 use Sakila\Domain\Inventory\Service\Request\AddInventoryRequest;
-use Sakila\Domain\Inventory\Validator\InventoryValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Inventory\Validator\InventoryValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class AddInventoryService
 {
     /**
-     * @var \Sakila\Domain\Inventory\Validator\InventoryValidator
+     * @var \Sakila\Domain\Inventory\Validator\InventoryValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Inventory\Repository\InventoryRepository
+     * @var \Sakila\Domain\Inventory\Repository\InventoryRepositoryInterface
      */
     private $inventoryRepository;
 
@@ -27,21 +27,21 @@ class AddInventoryService
     private $inventoryMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Inventory\Validator\InventoryValidator   $validator
-     * @param \Sakila\Domain\Inventory\Repository\InventoryRepository $repository
-     * @param \Sakila\Domain\Inventory\Entity\Mapper\InventoryMapper  $inventoryMapper
-     * @param \Sakila\Transformer\Transformer                         $transformer
+     * @param \Sakila\Domain\Inventory\Validator\InventoryValidatorInterface   $validator
+     * @param \Sakila\Domain\Inventory\Repository\InventoryRepositoryInterface $repository
+     * @param \Sakila\Domain\Inventory\Entity\Mapper\InventoryMapper           $inventoryMapper
+     * @param \Sakila\Transformer\TransformerInterface                         $transformer
      */
     public function __construct(
-        InventoryValidator $validator,
-        InventoryRepository $repository,
+        InventoryValidatorInterface $validator,
+        InventoryRepositoryInterface $repository,
         InventoryMapper $inventoryMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator           = $validator;
         $this->inventoryRepository = $repository;

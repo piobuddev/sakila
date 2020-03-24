@@ -2,20 +2,20 @@
 
 namespace Sakila\Domain\City\Service;
 
-use Sakila\Domain\City\Repository\CityRepository;
+use Sakila\Domain\City\Repository\CityRepositoryInterface;
 use Sakila\Domain\City\Service\Request\RemoveCityRequest;
 
 class RemoveCityService
 {
     /**
-     * @var \Sakila\Domain\City\Repository\CityRepository
+     * @var \Sakila\Domain\City\Repository\CityRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param \Sakila\Domain\City\Repository\CityRepository $repository
+     * @param \Sakila\Domain\City\Repository\CityRepositoryInterface $repository
      */
-    public function __construct(CityRepository $repository)
+    public function __construct(CityRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

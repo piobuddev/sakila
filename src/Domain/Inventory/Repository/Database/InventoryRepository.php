@@ -2,7 +2,7 @@
 
 namespace Sakila\Domain\Inventory\Repository\Database;
 
-use Sakila\Domain\Inventory\Repository\InventoryRepository as InventoryRepositoryInterface;
+use Sakila\Domain\Inventory\Repository\InventoryRepositoryInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class InventoryRepository extends AbstractDatabaseRepository implements InventoryRepositoryInterface

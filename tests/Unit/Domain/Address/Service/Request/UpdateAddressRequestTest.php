@@ -2,7 +2,7 @@
 
 namespace Sakila\Test\Domain\Address\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 use Sakila\Domain\Address\Service\Request\UpdateAddressRequest;
 use Sakila\Test\AbstractUnitTestCase;
 
@@ -14,7 +14,7 @@ class UpdateAddressRequestTest extends AbstractUnitTestCase
         $addressId  = 1;
         $cut        = new UpdateAddressRequest($addressId, $attributes);
 
-        $this->assertInstanceOf(Command::class, $cut);
+        $this->assertInstanceOf(CommandInterface::class, $cut);
         $this->assertEquals($attributes, $cut->getAttributes());
         $this->assertEquals($addressId, $cut->getAddressId());
     }

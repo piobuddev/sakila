@@ -4,6 +4,6 @@ namespace Sakila\Domain\Film\Repository;
 
 use Sakila\Repository\RepositoryInterface;
 
-interface FilmRepository extends RepositoryInterface
+interface FilmRepositoryInterface extends RepositoryInterface
 {
 }

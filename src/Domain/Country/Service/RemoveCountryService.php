@@ -2,20 +2,20 @@
 
 namespace Sakila\Domain\Country\Service;
 
-use Sakila\Domain\Country\Repository\CountryRepository;
+use Sakila\Domain\Country\Repository\CountryRepositoryInterface;
 use Sakila\Domain\Country\Service\Request\RemoveCountryRequest;
 
 class RemoveCountryService
 {
     /**
-     * @var \Sakila\Domain\Country\Repository\CountryRepository
+     * @var \Sakila\Domain\Country\Repository\CountryRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param \Sakila\Domain\Country\Repository\CountryRepository $repository
+     * @param \Sakila\Domain\Country\Repository\CountryRepositoryInterface $repository
      */
-    public function __construct(CountryRepository $repository)
+    public function __construct(CountryRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

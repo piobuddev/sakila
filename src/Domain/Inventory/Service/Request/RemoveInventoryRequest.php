@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Inventory\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class RemoveInventoryRequest implements Command
+class RemoveInventoryRequest implements CommandInterface
 {
     /**
      * @var int

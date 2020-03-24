@@ -2,7 +2,7 @@
 
 namespace Sakila\Test\Domain\Address\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 use Sakila\Domain\Address\Service\Request\AddAddressRequest;
 use Sakila\Test\AbstractUnitTestCase;
 
@@ -13,7 +13,7 @@ class AddAddressRequestTest extends AbstractUnitTestCase
         $attributes = ['foo' => 'bar'];
         $cut        = new AddAddressRequest($attributes);
 
-        $this->assertInstanceOf(Command::class, $cut);
+        $this->assertInstanceOf(CommandInterface::class, $cut);
         $this->assertEquals($attributes, $cut->getAttributes());
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Film\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class RemoveFilmRequest implements Command
+class RemoveFilmRequest implements CommandInterface
 {
     /**
      * @var int

@@ -2,20 +2,20 @@
 
 namespace Sakila\Domain\Payment\Service;
 
-use Sakila\Domain\Payment\Repository\PaymentRepository;
+use Sakila\Domain\Payment\Repository\PaymentRepositoryInterface;
 use Sakila\Domain\Payment\Service\Request\RemovePaymentRequest;
 
 class RemovePaymentService
 {
     /**
-     * @var \Sakila\Domain\Payment\Repository\PaymentRepository
+     * @var \Sakila\Domain\Payment\Repository\PaymentRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param \Sakila\Domain\Payment\Repository\PaymentRepository $repository
+     * @param \Sakila\Domain\Payment\Repository\PaymentRepositoryInterface $repository
      */
-    public function __construct(PaymentRepository $repository)
+    public function __construct(PaymentRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

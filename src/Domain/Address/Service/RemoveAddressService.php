@@ -2,20 +2,20 @@
 
 namespace Sakila\Domain\Address\Service;
 
-use Sakila\Domain\Address\Repository\AddressRepository;
+use Sakila\Domain\Address\Repository\AddressRepositoryInterface;
 use Sakila\Domain\Address\Service\Request\RemoveAddressRequest;
 
 class RemoveAddressService
 {
     /**
-     * @var \Sakila\Domain\Address\Repository\AddressRepository
+     * @var \Sakila\Domain\Address\Repository\AddressRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param \Sakila\Domain\Address\Repository\AddressRepository $repository
+     * @param \Sakila\Domain\Address\Repository\AddressRepositoryInterface $repository
      */
-    public function __construct(AddressRepository $repository)
+    public function __construct(AddressRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

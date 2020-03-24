@@ -2,7 +2,7 @@
 
 namespace Sakila\Test\Domain\Rental\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 use Sakila\Domain\Rental\Service\Request\AddRentalRequest;
 use Sakila\Test\AbstractUnitTestCase;
 
@@ -13,7 +13,7 @@ class AddRentalRequestTest extends AbstractUnitTestCase
         $attributes = ['foo' => 'bar'];
         $cut        = new AddRentalRequest($attributes);
 
-        $this->assertInstanceOf(Command::class, $cut);
+        $this->assertInstanceOf(CommandInterface::class, $cut);
         $this->assertEquals($attributes, $cut->getAttributes());
     }
 }

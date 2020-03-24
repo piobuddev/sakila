@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Payment\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class ShowPaymentsRequest implements Command
+class ShowPaymentsRequest implements CommandInterface
 {
     /**
      * @var int

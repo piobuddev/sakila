@@ -3,27 +3,27 @@
 namespace Sakila\Domain\Payment\Service;
 
 use Sakila\Domain\Payment\Entity\Transformer\PaymentTransformerInterface;
-use Sakila\Domain\Payment\Repository\PaymentRepository;
+use Sakila\Domain\Payment\Repository\PaymentRepositoryInterface;
 use Sakila\Domain\Payment\Service\Request\ShowPaymentRequest;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class ShowPaymentService
 {
     /**
-     * @var \Sakila\Domain\Payment\Repository\PaymentRepository
+     * @var \Sakila\Domain\Payment\Repository\PaymentRepositoryInterface
      */
     private $repository;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Payment\Repository\PaymentRepository $repository
-     * @param \Sakila\Transformer\Transformer                     $transformer
+     * @param \Sakila\Domain\Payment\Repository\PaymentRepositoryInterface $repository
+     * @param \Sakila\Transformer\TransformerInterface                     $transformer
      */
-    public function __construct(PaymentRepository $repository, Transformer $transformer)
+    public function __construct(PaymentRepositoryInterface $repository, TransformerInterface $transformer)
     {
         $this->repository  = $repository;
         $this->transformer = $transformer;

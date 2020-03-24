@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Staff\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class ShowStaffMemberRequest implements Command
+class ShowStaffMemberRequest implements CommandInterface
 {
     /**
      * @var int

@@ -4,6 +4,6 @@ namespace Sakila\Domain\Staff\Repository;
 
 use Sakila\Repository\RepositoryInterface;
 
-interface StaffRepository extends RepositoryInterface
+interface StaffRepositoryInterface extends RepositoryInterface
 {
 }

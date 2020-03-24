@@ -3,27 +3,27 @@
 namespace Sakila\Domain\Rental\Service;
 
 use Sakila\Domain\Rental\Entity\Transformer\RentalTransformerInterface;
-use Sakila\Domain\Rental\Repository\RentalRepository;
+use Sakila\Domain\Rental\Repository\RentalRepositoryInterface;
 use Sakila\Domain\Rental\Service\Request\ShowRentalRequest;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class ShowRentalService
 {
     /**
-     * @var \Sakila\Domain\Rental\Repository\RentalRepository
+     * @var \Sakila\Domain\Rental\Repository\RentalRepositoryInterface
      */
     private $repository;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Rental\Repository\RentalRepository $repository
-     * @param \Sakila\Transformer\Transformer                   $transformer
+     * @param \Sakila\Domain\Rental\Repository\RentalRepositoryInterface $repository
+     * @param \Sakila\Transformer\TransformerInterface                   $transformer
      */
-    public function __construct(RentalRepository $repository, Transformer $transformer)
+    public function __construct(RentalRepositoryInterface $repository, TransformerInterface $transformer)
     {
         $this->repository  = $repository;
         $this->transformer = $transformer;

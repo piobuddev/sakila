@@ -2,20 +2,20 @@
 
 namespace Sakila\Domain\Store\Service;
 
-use Sakila\Domain\Store\Repository\StoreRepository;
+use Sakila\Domain\Store\Repository\StoreRepositoryInterface;
 use Sakila\Domain\Store\Service\Request\RemoveStoreRequest;
 
 class RemoveStoreService
 {
     /**
-     * @var \Sakila\Domain\Store\Repository\StoreRepository
+     * @var \Sakila\Domain\Store\Repository\StoreRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param \Sakila\Domain\Store\Repository\StoreRepository $repository
+     * @param \Sakila\Domain\Store\Repository\StoreRepositoryInterface $repository
      */
-    public function __construct(StoreRepository $repository)
+    public function __construct(StoreRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

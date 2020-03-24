@@ -4,6 +4,6 @@ namespace Sakila\Domain\City\Repository;
 
 use Sakila\Repository\RepositoryInterface;
 
-interface CityRepository extends RepositoryInterface
+interface CityRepositoryInterface extends RepositoryInterface
 {
 }

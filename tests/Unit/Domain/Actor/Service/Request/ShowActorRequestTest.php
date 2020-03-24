@@ -2,7 +2,7 @@
 
 namespace Sakila\Test\Domain\Actor\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 use Sakila\Domain\Actor\Service\Request\ShowActorRequest;
 use Sakila\Test\AbstractUnitTestCase;
 
@@ -13,7 +13,7 @@ class ShowActorRequestTest extends AbstractUnitTestCase
         $actorId = 1;
         $cut = new ShowActorRequest(1);
 
-        $this->assertInstanceOf(Command::class, $cut);
+        $this->assertInstanceOf(CommandInterface::class, $cut);
         $this->assertEquals($actorId, $cut->getActorId());
     }
 }

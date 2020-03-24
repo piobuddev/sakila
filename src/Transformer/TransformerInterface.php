@@ -2,7 +2,7 @@
 
 namespace Sakila\Transformer;
 
-interface Transformer
+interface TransformerInterface
 {
     /**
      * @param mixed       $data

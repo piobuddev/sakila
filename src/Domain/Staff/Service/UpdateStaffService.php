@@ -4,20 +4,20 @@ namespace Sakila\Domain\Staff\Service;
 
 use Sakila\Domain\Staff\Entity\Mapper\StaffMapper;
 use Sakila\Domain\Staff\Entity\Transformer\StaffTransformerInterface;
-use Sakila\Domain\Staff\Repository\StaffRepository;
+use Sakila\Domain\Staff\Repository\StaffRepositoryInterface;
 use Sakila\Domain\Staff\Service\Request\UpdateStaffRequest;
-use Sakila\Domain\Staff\Validator\StaffValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Staff\Validator\StaffValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class UpdateStaffService
 {
     /**
-     * @var \Sakila\Domain\Staff\Validator\StaffValidator
+     * @var \Sakila\Domain\Staff\Validator\StaffValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Staff\Repository\StaffRepository
+     * @var \Sakila\Domain\Staff\Repository\StaffRepositoryInterface
      */
     private $staffRepository;
 
@@ -27,21 +27,21 @@ class UpdateStaffService
     private $staffMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Staff\Validator\StaffValidator   $validator
-     * @param \Sakila\Domain\Staff\Repository\StaffRepository $repository
-     * @param \Sakila\Domain\Staff\Entity\Mapper\StaffMapper  $staffMapper
-     * @param \Sakila\Transformer\Transformer                 $transformer
+     * @param \Sakila\Domain\Staff\Validator\StaffValidatorInterface   $validator
+     * @param \Sakila\Domain\Staff\Repository\StaffRepositoryInterface $repository
+     * @param \Sakila\Domain\Staff\Entity\Mapper\StaffMapper           $staffMapper
+     * @param \Sakila\Transformer\TransformerInterface                 $transformer
      */
     public function __construct(
-        StaffValidator $validator,
-        StaffRepository $repository,
+        StaffValidatorInterface $validator,
+        StaffRepositoryInterface $repository,
         StaffMapper $staffMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator       = $validator;
         $this->staffRepository = $repository;

@@ -4,6 +4,6 @@ namespace Sakila\Domain\Payment\Repository;
 
 use Sakila\Repository\RepositoryInterface;
 
-interface PaymentRepository extends RepositoryInterface
+interface PaymentRepositoryInterface extends RepositoryInterface
 {
 }

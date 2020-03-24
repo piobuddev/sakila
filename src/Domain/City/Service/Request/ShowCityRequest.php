@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\City\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class ShowCityRequest implements Command
+class ShowCityRequest implements CommandInterface
 {
     /**
      * @var int

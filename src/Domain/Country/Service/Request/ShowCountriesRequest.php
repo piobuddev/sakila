@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Country\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class ShowCountriesRequest implements Command
+class ShowCountriesRequest implements CommandInterface
 {
     /**
      * @var int

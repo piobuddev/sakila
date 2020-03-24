@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Address\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class RemoveAddressRequest implements Command
+class RemoveAddressRequest implements CommandInterface
 {
     /**
      * @var int

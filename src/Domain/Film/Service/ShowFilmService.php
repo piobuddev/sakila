@@ -3,27 +3,27 @@
 namespace Sakila\Domain\Film\Service;
 
 use Sakila\Domain\Film\Entity\Transformer\FilmTransformerInterface;
-use Sakila\Domain\Film\Repository\FilmRepository;
+use Sakila\Domain\Film\Repository\FilmRepositoryInterface;
 use Sakila\Domain\Film\Service\Request\ShowFilmRequest;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class ShowFilmService
 {
     /**
-     * @var \Sakila\Domain\Film\Repository\FilmRepository
+     * @var \Sakila\Domain\Film\Repository\FilmRepositoryInterface
      */
     private $repository;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Film\Repository\FilmRepository $repository
-     * @param \Sakila\Transformer\Transformer               $transformer
+     * @param \Sakila\Domain\Film\Repository\FilmRepositoryInterface $repository
+     * @param \Sakila\Transformer\TransformerInterface               $transformer
      */
-    public function __construct(FilmRepository $repository, Transformer $transformer)
+    public function __construct(FilmRepositoryInterface $repository, TransformerInterface $transformer)
     {
         $this->repository  = $repository;
         $this->transformer = $transformer;

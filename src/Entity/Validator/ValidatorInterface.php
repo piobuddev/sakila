@@ -2,7 +2,7 @@
 
 namespace Sakila\Entity\Validator;
 
-interface Validator
+interface ValidatorInterface
 {
     /**
      * @param array $attributes

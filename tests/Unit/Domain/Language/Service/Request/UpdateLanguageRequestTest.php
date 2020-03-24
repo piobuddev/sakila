@@ -2,7 +2,7 @@
 
 namespace Sakila\Test\Domain\Language\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 use Sakila\Domain\Language\Service\Request\UpdateLanguageRequest;
 use Sakila\Test\AbstractUnitTestCase;
 
@@ -14,7 +14,7 @@ class UpdateLanguageRequestTest extends AbstractUnitTestCase
         $languageId = 1;
         $cut        = new UpdateLanguageRequest($languageId, $attributes);
 
-        $this->assertInstanceOf(Command::class, $cut);
+        $this->assertInstanceOf(CommandInterface::class, $cut);
         $this->assertEquals($attributes, $cut->getAttributes());
         $this->assertEquals($languageId, $cut->getLanguageId());
     }

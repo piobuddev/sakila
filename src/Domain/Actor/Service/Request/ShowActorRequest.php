@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Actor\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class ShowActorRequest implements Command
+class ShowActorRequest implements CommandInterface
 {
     /**
      * @var int

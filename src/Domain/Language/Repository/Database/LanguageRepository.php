@@ -2,7 +2,7 @@
 
 namespace Sakila\Domain\Language\Repository\Database;
 
-use Sakila\Domain\Language\Repository\LanguageRepository as LanguageRepositoryInterface;
+use Sakila\Domain\Language\Repository\LanguageRepositoryInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class LanguageRepository extends AbstractDatabaseRepository implements LanguageRepositoryInterface

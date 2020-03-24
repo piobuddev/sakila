@@ -4,20 +4,20 @@ namespace Sakila\Domain\Rental\Service;
 
 use Sakila\Domain\Rental\Entity\Mapper\RentalMapper;
 use Sakila\Domain\Rental\Entity\Transformer\RentalTransformerInterface;
-use Sakila\Domain\Rental\Repository\RentalRepository;
+use Sakila\Domain\Rental\Repository\RentalRepositoryInterface;
 use Sakila\Domain\Rental\Service\Request\AddRentalRequest;
-use Sakila\Domain\Rental\Validator\RentalValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Rental\Validator\RentalValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class AddRentalService
 {
     /**
-     * @var \Sakila\Domain\Rental\Validator\RentalValidator
+     * @var \Sakila\Domain\Rental\Validator\RentalValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Rental\Repository\RentalRepository
+     * @var \Sakila\Domain\Rental\Repository\RentalRepositoryInterface
      */
     private $rentalRepository;
 
@@ -27,21 +27,21 @@ class AddRentalService
     private $rentalMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Rental\Validator\RentalValidator   $validator
-     * @param \Sakila\Domain\Rental\Repository\RentalRepository $repository
-     * @param \Sakila\Domain\Rental\Entity\Mapper\RentalMapper  $rentalMapper
-     * @param \Sakila\Transformer\Transformer                   $transformer
+     * @param \Sakila\Domain\Rental\Validator\RentalValidatorInterface   $validator
+     * @param \Sakila\Domain\Rental\Repository\RentalRepositoryInterface $repository
+     * @param \Sakila\Domain\Rental\Entity\Mapper\RentalMapper           $rentalMapper
+     * @param \Sakila\Transformer\TransformerInterface                   $transformer
      */
     public function __construct(
-        RentalValidator $validator,
-        RentalRepository $repository,
+        RentalValidatorInterface $validator,
+        RentalRepositoryInterface $repository,
         RentalMapper $rentalMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator        = $validator;
         $this->rentalRepository = $repository;

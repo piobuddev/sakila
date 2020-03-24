@@ -4,20 +4,20 @@ namespace Sakila\Domain\Customer\Service;
 
 use Sakila\Domain\Customer\Entity\Mapper\CustomerMapper;
 use Sakila\Domain\Customer\Entity\Transformer\CustomerTransformerInterface;
-use Sakila\Domain\Customer\Repository\CustomerRepository;
+use Sakila\Domain\Customer\Repository\CustomerRepositoryInterface;
 use Sakila\Domain\Customer\Service\Request\AddCustomerRequest;
-use Sakila\Domain\Customer\Validator\CustomerValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Customer\Validator\CustomerValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class AddCustomerService
 {
     /**
-     * @var \Sakila\Domain\Customer\Validator\CustomerValidator
+     * @var \Sakila\Domain\Customer\Validator\CustomerValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Customer\Repository\CustomerRepository
+     * @var \Sakila\Domain\Customer\Repository\CustomerRepositoryInterface
      */
     private $customerRepository;
 
@@ -27,21 +27,21 @@ class AddCustomerService
     private $customerMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Customer\Validator\CustomerValidator   $validator
-     * @param \Sakila\Domain\Customer\Repository\CustomerRepository $repository
-     * @param \Sakila\Domain\Customer\Entity\Mapper\CustomerMapper  $customerMapper
-     * @param \Sakila\Transformer\Transformer                       $transformer
+     * @param \Sakila\Domain\Customer\Validator\CustomerValidatorInterface   $validator
+     * @param \Sakila\Domain\Customer\Repository\CustomerRepositoryInterface $repository
+     * @param \Sakila\Domain\Customer\Entity\Mapper\CustomerMapper           $customerMapper
+     * @param \Sakila\Transformer\TransformerInterface                       $transformer
      */
     public function __construct(
-        CustomerValidator $validator,
-        CustomerRepository $repository,
+        CustomerValidatorInterface $validator,
+        CustomerRepositoryInterface $repository,
         CustomerMapper $customerMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator          = $validator;
         $this->customerRepository = $repository;

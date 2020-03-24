@@ -4,20 +4,20 @@ namespace Sakila\Domain\Address\Service;
 
 use Sakila\Domain\Address\Entity\Mapper\AddressMapper;
 use Sakila\Domain\Address\Entity\Transformer\AddressTransformerInterface;
-use Sakila\Domain\Address\Repository\AddressRepository;
+use Sakila\Domain\Address\Repository\AddressRepositoryInterface;
 use Sakila\Domain\Address\Service\Request\AddAddressRequest;
-use Sakila\Domain\Address\Validator\AddressValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Address\Validator\AddressValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class AddAddressService
 {
     /**
-     * @var \Sakila\Domain\Address\Validator\AddressValidator
+     * @var \Sakila\Domain\Address\Validator\AddressValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Address\Repository\AddressRepository
+     * @var \Sakila\Domain\Address\Repository\AddressRepositoryInterface
      */
     private $addressRepository;
 
@@ -27,21 +27,21 @@ class AddAddressService
     private $addressMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Address\Validator\AddressValidator   $validator
-     * @param \Sakila\Domain\Address\Repository\AddressRepository $repository
-     * @param \Sakila\Domain\Address\Entity\Mapper\AddressMapper  $addressMapper
-     * @param \Sakila\Transformer\Transformer                     $transformer
+     * @param \Sakila\Domain\Address\Validator\AddressValidatorInterface   $validator
+     * @param \Sakila\Domain\Address\Repository\AddressRepositoryInterface $repository
+     * @param \Sakila\Domain\Address\Entity\Mapper\AddressMapper           $addressMapper
+     * @param \Sakila\Transformer\TransformerInterface                     $transformer
      */
     public function __construct(
-        AddressValidator $validator,
-        AddressRepository $repository,
+        AddressValidatorInterface $validator,
+        AddressRepositoryInterface $repository,
         AddressMapper $addressMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator         = $validator;
         $this->addressRepository = $repository;

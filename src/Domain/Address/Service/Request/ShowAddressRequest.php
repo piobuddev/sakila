@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Address\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class ShowAddressRequest implements Command
+class ShowAddressRequest implements CommandInterface
 {
     /**
      * @var int

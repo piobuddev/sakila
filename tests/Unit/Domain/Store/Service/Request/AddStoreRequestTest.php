@@ -2,7 +2,7 @@
 
 namespace Sakila\Test\Domain\Store\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 use Sakila\Domain\Store\Service\Request\AddStoreRequest;
 use Sakila\Test\AbstractUnitTestCase;
 
@@ -13,7 +13,7 @@ class AddStoreRequestTest extends AbstractUnitTestCase
         $attributes = ['foo' => 'bar'];
         $cut        = new AddStoreRequest($attributes);
 
-        $this->assertInstanceOf(Command::class, $cut);
+        $this->assertInstanceOf(CommandInterface::class, $cut);
         $this->assertEquals($attributes, $cut->getAttributes());
     }
 }

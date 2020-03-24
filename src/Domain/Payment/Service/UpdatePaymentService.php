@@ -4,20 +4,20 @@ namespace Sakila\Domain\Payment\Service;
 
 use Sakila\Domain\Payment\Entity\Mapper\PaymentMapper;
 use Sakila\Domain\Payment\Entity\Transformer\PaymentTransformerInterface;
-use Sakila\Domain\Payment\Repository\PaymentRepository;
+use Sakila\Domain\Payment\Repository\PaymentRepositoryInterface;
 use Sakila\Domain\Payment\Service\Request\UpdatePaymentRequest;
-use Sakila\Domain\Payment\Validator\PaymentValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Payment\Validator\PaymentValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class UpdatePaymentService
 {
     /**
-     * @var \Sakila\Domain\Payment\Validator\PaymentValidator
+     * @var \Sakila\Domain\Payment\Validator\PaymentValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Payment\Repository\PaymentRepository
+     * @var \Sakila\Domain\Payment\Repository\PaymentRepositoryInterface
      */
     private $paymentRepository;
 
@@ -27,21 +27,21 @@ class UpdatePaymentService
     private $paymentMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Payment\Validator\PaymentValidator   $validator
-     * @param \Sakila\Domain\Payment\Repository\PaymentRepository $repository
-     * @param \Sakila\Domain\Payment\Entity\Mapper\PaymentMapper  $paymentMapper
-     * @param \Sakila\Transformer\Transformer                     $transformer
+     * @param \Sakila\Domain\Payment\Validator\PaymentValidatorInterface   $validator
+     * @param \Sakila\Domain\Payment\Repository\PaymentRepositoryInterface $repository
+     * @param \Sakila\Domain\Payment\Entity\Mapper\PaymentMapper           $paymentMapper
+     * @param \Sakila\Transformer\TransformerInterface                     $transformer
      */
     public function __construct(
-        PaymentValidator $validator,
-        PaymentRepository $repository,
+        PaymentValidatorInterface $validator,
+        PaymentRepositoryInterface $repository,
         PaymentMapper $paymentMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator         = $validator;
         $this->paymentRepository = $repository;

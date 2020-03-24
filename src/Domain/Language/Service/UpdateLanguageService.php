@@ -4,20 +4,20 @@ namespace Sakila\Domain\Language\Service;
 
 use Sakila\Domain\Language\Entity\Mapper\LanguageMapper;
 use Sakila\Domain\Language\Entity\Transformer\LanguageTransformerInterface;
-use Sakila\Domain\Language\Repository\LanguageRepository;
+use Sakila\Domain\Language\Repository\LanguageRepositoryInterface;
 use Sakila\Domain\Language\Service\Request\UpdateLanguageRequest;
-use Sakila\Domain\Language\Validator\LanguageValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Language\Validator\LanguageValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class UpdateLanguageService
 {
     /**
-     * @var \Sakila\Domain\Language\Validator\LanguageValidator
+     * @var \Sakila\Domain\Language\Validator\LanguageValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Language\Repository\LanguageRepository
+     * @var \Sakila\Domain\Language\Repository\LanguageRepositoryInterface
      */
     private $languageRepository;
 
@@ -27,21 +27,21 @@ class UpdateLanguageService
     private $languageMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Language\Validator\LanguageValidator   $validator
-     * @param \Sakila\Domain\Language\Repository\LanguageRepository $repository
-     * @param \Sakila\Domain\Language\Entity\Mapper\LanguageMapper  $languageMapper
-     * @param \Sakila\Transformer\Transformer                       $transformer
+     * @param \Sakila\Domain\Language\Validator\LanguageValidatorInterface   $validator
+     * @param \Sakila\Domain\Language\Repository\LanguageRepositoryInterface $repository
+     * @param \Sakila\Domain\Language\Entity\Mapper\LanguageMapper           $languageMapper
+     * @param \Sakila\Transformer\TransformerInterface                       $transformer
      */
     public function __construct(
-        LanguageValidator $validator,
-        LanguageRepository $repository,
+        LanguageValidatorInterface $validator,
+        LanguageRepositoryInterface $repository,
         LanguageMapper $languageMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator          = $validator;
         $this->languageRepository = $repository;

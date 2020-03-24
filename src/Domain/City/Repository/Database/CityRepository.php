@@ -2,7 +2,7 @@
 
 namespace Sakila\Domain\City\Repository\Database;
 
-use Sakila\Domain\City\Repository\CityRepository as CityRepositoryInterface;
+use Sakila\Domain\City\Repository\CityRepositoryInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class CityRepository extends AbstractDatabaseRepository implements CityRepositoryInterface

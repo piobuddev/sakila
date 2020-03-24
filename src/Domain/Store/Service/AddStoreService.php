@@ -4,20 +4,20 @@ namespace Sakila\Domain\Store\Service;
 
 use Sakila\Domain\Store\Entity\Mapper\StoreMapper;
 use Sakila\Domain\Store\Entity\Transformer\StoreTransformerInterface;
-use Sakila\Domain\Store\Repository\StoreRepository;
+use Sakila\Domain\Store\Repository\StoreRepositoryInterface;
 use Sakila\Domain\Store\Service\Request\AddStoreRequest;
-use Sakila\Domain\Store\Validator\StoreValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Store\Validator\StoreValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class AddStoreService
 {
     /**
-     * @var \Sakila\Domain\Store\Validator\StoreValidator
+     * @var \Sakila\Domain\Store\Validator\StoreValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Store\Repository\StoreRepository
+     * @var \Sakila\Domain\Store\Repository\StoreRepositoryInterface
      */
     private $storeRepository;
 
@@ -27,21 +27,21 @@ class AddStoreService
     private $storeMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Store\Validator\StoreValidator   $validator
-     * @param \Sakila\Domain\Store\Repository\StoreRepository $repository
-     * @param \Sakila\Domain\Store\Entity\Mapper\StoreMapper  $storeMapper
-     * @param \Sakila\Transformer\Transformer                 $transformer
+     * @param \Sakila\Domain\Store\Validator\StoreValidatorInterface   $validator
+     * @param \Sakila\Domain\Store\Repository\StoreRepositoryInterface $repository
+     * @param \Sakila\Domain\Store\Entity\Mapper\StoreMapper           $storeMapper
+     * @param \Sakila\Transformer\TransformerInterface                 $transformer
      */
     public function __construct(
-        StoreValidator $validator,
-        StoreRepository $repository,
+        StoreValidatorInterface $validator,
+        StoreRepositoryInterface $repository,
         StoreMapper $storeMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator       = $validator;
         $this->storeRepository = $repository;

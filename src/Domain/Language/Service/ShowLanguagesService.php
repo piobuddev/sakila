@@ -3,29 +3,29 @@
 namespace Sakila\Domain\Language\Service;
 
 use Sakila\Domain\Language\Entity\Transformer\LanguageTransformerInterface;
-use Sakila\Domain\Language\Repository\LanguageRepository;
+use Sakila\Domain\Language\Repository\LanguageRepositoryInterface;
 use Sakila\Domain\Language\Service\Request\ShowLanguagesRequest;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class ShowLanguagesService
 {
     /**
-     * @var \Sakila\Domain\Language\Repository\LanguageRepository
+     * @var \Sakila\Domain\Language\Repository\LanguageRepositoryInterface
      */
     private $repository;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Language\Repository\LanguageRepository $repository
-     * @param \Sakila\Transformer\Transformer                       $transformer
+     * @param \Sakila\Domain\Language\Repository\LanguageRepositoryInterface $repository
+     * @param \Sakila\Transformer\TransformerInterface                       $transformer
      */
     public function __construct(
-        LanguageRepository $repository,
-        Transformer $transformer
+        LanguageRepositoryInterface $repository,
+        TransformerInterface $transformer
     ) {
         $this->repository  = $repository;
         $this->transformer = $transformer;

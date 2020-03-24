@@ -2,6 +2,6 @@
 
 namespace Sakila\Command;
 
-interface Command
+interface CommandInterface
 {
 }

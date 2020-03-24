@@ -3,27 +3,27 @@
 namespace Sakila\Domain\City\Service;
 
 use Sakila\Domain\City\Entity\Transformer\CityTransformerInterface;
-use Sakila\Domain\City\Repository\CityRepository;
+use Sakila\Domain\City\Repository\CityRepositoryInterface;
 use Sakila\Domain\City\Service\Request\ShowCityRequest;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class ShowCityService
 {
     /**
-     * @var \Sakila\Domain\City\Repository\CityRepository
+     * @var \Sakila\Domain\City\Repository\CityRepositoryInterface
      */
     private $repository;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\City\Repository\CityRepository $repository
-     * @param \Sakila\Transformer\Transformer               $transformer
+     * @param \Sakila\Domain\City\Repository\CityRepositoryInterface $repository
+     * @param \Sakila\Transformer\TransformerInterface               $transformer
      */
-    public function __construct(CityRepository $repository, Transformer $transformer)
+    public function __construct(CityRepositoryInterface $repository, TransformerInterface $transformer)
     {
         $this->repository  = $repository;
         $this->transformer = $transformer;

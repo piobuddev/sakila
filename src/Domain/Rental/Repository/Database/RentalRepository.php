@@ -2,7 +2,7 @@
 
 namespace Sakila\Domain\Rental\Repository\Database;
 
-use Sakila\Domain\Rental\Repository\RentalRepository as RentalRepositoryInterface;
+use Sakila\Domain\Rental\Repository\RentalRepositoryInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class RentalRepository extends AbstractDatabaseRepository implements RentalRepositoryInterface

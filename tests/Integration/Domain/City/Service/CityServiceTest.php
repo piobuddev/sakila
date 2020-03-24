@@ -4,15 +4,15 @@ namespace Sakila\Test\Domain\City\Requests\Handlers;
 
 use Sakila\Domain\City\Entity\Mapper\CityMapper;
 use Sakila\Domain\City\Entity\Transformer\CityTransformerInterface;
-use Sakila\Domain\City\Repository\CityRepository;
+use Sakila\Domain\City\Repository\CityRepositoryInterface;
 use Sakila\Domain\City\Service\AddCityService;
 use Sakila\Domain\City\Service\Request\AddCityRequest;
 use Sakila\Domain\City\Service\Request\UpdateCityRequest;
 use Sakila\Domain\City\Service\UpdateCityService;
-use Sakila\Domain\City\Validator\CityValidator;
+use Sakila\Domain\City\Validator\CityValidatorInterface;
 use Sakila\Entity\EntityInterface;
 use Sakila\Test\AbstractIntegrationTestCase;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class CityServiceTest extends AbstractIntegrationTestCase
 {
@@ -20,7 +20,7 @@ class CityServiceTest extends AbstractIntegrationTestCase
     {
         $request = new AddCityRequest(['foo' => 'bar']);
 
-        $validator = $this->createMock(CityValidator::class);
+        $validator = $this->createMock(CityValidatorInterface::class);
         $validator->expects($this->once())->method('validate')->with($request->getAttributes());
 
         $entity = $this->createMock(EntityInterface::class);
@@ -29,12 +29,12 @@ class CityServiceTest extends AbstractIntegrationTestCase
         $mapper = $this->createMock(CityMapper::class);
         $mapper->expects($this->once())->method('map')->with($request->getAttributes())->willReturn($mapped);
 
-        $repository = $this->createMock(CityRepository::class);
+        $repository = $this->createMock(CityRepositoryInterface::class);
         $repository->expects($this->once())->method('add')->with($mapped);
         $repository->expects($this->once())->method('lastInsertedId')->willReturn(1);
         $repository->expects($this->once())->method('get')->with(1)->willReturn($entity);
 
-        $transformer = $this->createMock(Transformer::class);
+        $transformer = $this->createMock(TransformerInterface::class);
         $transformer
             ->expects($this->once())
             ->method('item')
@@ -52,7 +52,7 @@ class CityServiceTest extends AbstractIntegrationTestCase
         $request = new UpdateCityRequest($cityId, ['foo' => 'bar']);
 
         $attributes = array_merge(['city_id' => $request->getCityId()], $request->getAttributes());
-        $validator  = $this->createMock(CityValidator::class);
+        $validator  = $this->createMock(CityValidatorInterface::class);
         $validator->expects($this->once())->method('validate')->with($attributes);
 
         $entity = $this->createMock(EntityInterface::class);
@@ -61,14 +61,14 @@ class CityServiceTest extends AbstractIntegrationTestCase
         $mapper = $this->createMock(CityMapper::class);
         $mapper->expects($this->once())->method('map')->with($request->getAttributes())->willReturn($mapped);
 
-        $repository = $this->createMock(CityRepository::class);
+        $repository = $this->createMock(CityRepositoryInterface::class);
         $repository
             ->expects($this->once())
             ->method('update')
             ->with($request->getCityId(), $mapped)
             ->willReturn($entity);
 
-        $transformer = $this->createMock(Transformer::class);
+        $transformer = $this->createMock(TransformerInterface::class);
         $transformer
             ->expects($this->once())
             ->method('item')

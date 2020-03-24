@@ -2,7 +2,7 @@
 
 namespace Sakila\Domain\Store\Repository\Database;
 
-use Sakila\Domain\Store\Repository\StoreRepository as StoreRepositoryInterface;
+use Sakila\Domain\Store\Repository\StoreRepositoryInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class StoreRepository extends AbstractDatabaseRepository implements StoreRepositoryInterface

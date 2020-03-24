@@ -3,29 +3,29 @@
 namespace Sakila\Domain\Address\Service;
 
 use Sakila\Domain\Address\Entity\Transformer\AddressTransformerInterface;
-use Sakila\Domain\Address\Repository\AddressRepository;
+use Sakila\Domain\Address\Repository\AddressRepositoryInterface;
 use Sakila\Domain\Address\Service\Request\ShowAddressesRequest;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class ShowAddressesService
 {
     /**
-     * @var \Sakila\Domain\Address\Repository\AddressRepository
+     * @var \Sakila\Domain\Address\Repository\AddressRepositoryInterface
      */
     private $repository;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Address\Repository\AddressRepository $repository
-     * @param \Sakila\Transformer\Transformer                     $transformer
+     * @param \Sakila\Domain\Address\Repository\AddressRepositoryInterface $repository
+     * @param \Sakila\Transformer\TransformerInterface                     $transformer
      */
     public function __construct(
-        AddressRepository $repository,
-        Transformer $transformer
+        AddressRepositoryInterface $repository,
+        TransformerInterface $transformer
     ) {
         $this->repository  = $repository;
         $this->transformer = $transformer;

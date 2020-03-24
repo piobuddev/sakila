@@ -4,15 +4,15 @@ namespace Sakila\Test\Domain\Staff\Requests\Handlers;
 
 use Sakila\Domain\Staff\Entity\Mapper\StaffMapper;
 use Sakila\Domain\Staff\Entity\Transformer\StaffTransformerInterface;
-use Sakila\Domain\Staff\Repository\StaffRepository;
+use Sakila\Domain\Staff\Repository\StaffRepositoryInterface;
 use Sakila\Domain\Staff\Service\AddStaffService;
 use Sakila\Domain\Staff\Service\Request\AddStaffRequest;
 use Sakila\Domain\Staff\Service\Request\UpdateStaffRequest;
 use Sakila\Domain\Staff\Service\UpdateStaffService;
-use Sakila\Domain\Staff\Validator\StaffValidator;
+use Sakila\Domain\Staff\Validator\StaffValidatorInterface;
 use Sakila\Entity\EntityInterface;
 use Sakila\Test\AbstractIntegrationTestCase;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class StaffServiceTest extends AbstractIntegrationTestCase
 {
@@ -20,7 +20,7 @@ class StaffServiceTest extends AbstractIntegrationTestCase
     {
         $request = new AddStaffRequest(['foo' => 'bar']);
 
-        $validator = $this->createMock(StaffValidator::class);
+        $validator = $this->createMock(StaffValidatorInterface::class);
         $validator->expects($this->once())->method('validate')->with($request->getAttributes());
 
         $entity = $this->createMock(EntityInterface::class);
@@ -29,12 +29,12 @@ class StaffServiceTest extends AbstractIntegrationTestCase
         $mapper = $this->createMock(StaffMapper::class);
         $mapper->expects($this->once())->method('map')->with($request->getAttributes())->willReturn($mapped);
 
-        $repository = $this->createMock(StaffRepository::class);
+        $repository = $this->createMock(StaffRepositoryInterface::class);
         $repository->expects($this->once())->method('add')->with($mapped);
         $repository->expects($this->once())->method('lastInsertedId')->willReturn(1);
         $repository->expects($this->once())->method('get')->with(1)->willReturn($entity);
 
-        $transformer = $this->createMock(Transformer::class);
+        $transformer = $this->createMock(TransformerInterface::class);
         $transformer
             ->expects($this->once())
             ->method('item')
@@ -52,7 +52,7 @@ class StaffServiceTest extends AbstractIntegrationTestCase
         $request = new UpdateStaffRequest($staffId, ['foo' => 'bar']);
 
         $attributes = array_merge(['staff_id' => $request->getStaffId()], $request->getAttributes());
-        $validator  = $this->createMock(StaffValidator::class);
+        $validator  = $this->createMock(StaffValidatorInterface::class);
         $validator->expects($this->once())->method('validate')->with($attributes);
 
         $entity = $this->createMock(EntityInterface::class);
@@ -61,14 +61,14 @@ class StaffServiceTest extends AbstractIntegrationTestCase
         $mapper = $this->createMock(StaffMapper::class);
         $mapper->expects($this->once())->method('map')->with($request->getAttributes())->willReturn($mapped);
 
-        $repository = $this->createMock(StaffRepository::class);
+        $repository = $this->createMock(StaffRepositoryInterface::class);
         $repository
             ->expects($this->once())
             ->method('update')
             ->with($request->getStaffId(), $mapped)
             ->willReturn($entity);
 
-        $transformer = $this->createMock(Transformer::class);
+        $transformer = $this->createMock(TransformerInterface::class);
         $transformer
             ->expects($this->once())
             ->method('item')

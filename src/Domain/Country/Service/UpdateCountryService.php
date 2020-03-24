@@ -4,20 +4,20 @@ namespace Sakila\Domain\Country\Service;
 
 use Sakila\Domain\Country\Entity\Mapper\CountryMapper;
 use Sakila\Domain\Country\Entity\Transformer\CountryTransformerInterface;
-use Sakila\Domain\Country\Repository\CountryRepository;
+use Sakila\Domain\Country\Repository\CountryRepositoryInterface;
 use Sakila\Domain\Country\Service\Request\UpdateCountryRequest;
-use Sakila\Domain\Country\Validator\CountryValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Country\Validator\CountryValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class UpdateCountryService
 {
     /**
-     * @var \Sakila\Domain\Country\Validator\CountryValidator
+     * @var \Sakila\Domain\Country\Validator\CountryValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Country\Repository\CountryRepository
+     * @var \Sakila\Domain\Country\Repository\CountryRepositoryInterface
      */
     private $countryRepository;
 
@@ -27,21 +27,21 @@ class UpdateCountryService
     private $countryMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Country\Validator\CountryValidator   $validator
-     * @param \Sakila\Domain\Country\Repository\CountryRepository $repository
-     * @param \Sakila\Domain\Country\Entity\Mapper\CountryMapper  $countryMapper
-     * @param \Sakila\Transformer\Transformer                     $transformer
+     * @param \Sakila\Domain\Country\Validator\CountryValidatorInterface   $validator
+     * @param \Sakila\Domain\Country\Repository\CountryRepositoryInterface $repository
+     * @param \Sakila\Domain\Country\Entity\Mapper\CountryMapper           $countryMapper
+     * @param \Sakila\Transformer\TransformerInterface                     $transformer
      */
     public function __construct(
-        CountryValidator $validator,
-        CountryRepository $repository,
+        CountryValidatorInterface $validator,
+        CountryRepositoryInterface $repository,
         CountryMapper $countryMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator         = $validator;
         $this->countryRepository = $repository;

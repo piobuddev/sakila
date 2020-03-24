@@ -2,7 +2,7 @@
 
 namespace Sakila\Domain\Actor\Repository\Database;
 
-use Sakila\Domain\Actor\Repository\ActorRepository as ActorRepositoryInterface;
+use Sakila\Domain\Actor\Repository\ActorRepositoryInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class ActorRepository extends AbstractDatabaseRepository implements ActorRepositoryInterface

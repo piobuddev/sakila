@@ -2,20 +2,20 @@
 
 namespace Sakila\Domain\Customer\Service;
 
-use Sakila\Domain\Customer\Repository\CustomerRepository;
+use Sakila\Domain\Customer\Repository\CustomerRepositoryInterface;
 use Sakila\Domain\Customer\Service\Request\RemoveCustomerRequest;
 
 class RemoveCustomerService
 {
     /**
-     * @var \Sakila\Domain\Customer\Repository\CustomerRepository
+     * @var \Sakila\Domain\Customer\Repository\CustomerRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param \Sakila\Domain\Customer\Repository\CustomerRepository $repository
+     * @param \Sakila\Domain\Customer\Repository\CustomerRepositoryInterface $repository
      */
-    public function __construct(CustomerRepository $repository)
+    public function __construct(CustomerRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

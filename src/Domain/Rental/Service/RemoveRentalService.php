@@ -2,20 +2,20 @@
 
 namespace Sakila\Domain\Rental\Service;
 
-use Sakila\Domain\Rental\Repository\RentalRepository;
+use Sakila\Domain\Rental\Repository\RentalRepositoryInterface;
 use Sakila\Domain\Rental\Service\Request\RemoveRentalRequest;
 
 class RemoveRentalService
 {
     /**
-     * @var \Sakila\Domain\Rental\Repository\RentalRepository
+     * @var \Sakila\Domain\Rental\Repository\RentalRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param \Sakila\Domain\Rental\Repository\RentalRepository $repository
+     * @param \Sakila\Domain\Rental\Repository\RentalRepositoryInterface $repository
      */
-    public function __construct(RentalRepository $repository)
+    public function __construct(RentalRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

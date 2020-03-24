@@ -2,7 +2,7 @@
 
 namespace Sakila\Test\Domain\Store\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 use Sakila\Domain\Store\Service\Request\UpdateStoreRequest;
 use Sakila\Test\AbstractUnitTestCase;
 
@@ -14,7 +14,7 @@ class UpdateStoreRequestTest extends AbstractUnitTestCase
         $storeId    = 1;
         $cut        = new UpdateStoreRequest($storeId, $attributes);
 
-        $this->assertInstanceOf(Command::class, $cut);
+        $this->assertInstanceOf(CommandInterface::class, $cut);
         $this->assertEquals($attributes, $cut->getAttributes());
         $this->assertEquals($storeId, $cut->getStoreId());
     }

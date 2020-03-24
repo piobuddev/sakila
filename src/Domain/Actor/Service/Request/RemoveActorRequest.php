@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Actor\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class RemoveActorRequest implements Command
+class RemoveActorRequest implements CommandInterface
 {
     /**
      * @var int

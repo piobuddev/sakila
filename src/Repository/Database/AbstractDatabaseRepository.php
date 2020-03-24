@@ -6,7 +6,7 @@ use Sakila\Entity\EntityInterface;
 use Sakila\Entity\FactoryInterface;
 use Sakila\Exceptions\Database\NotFoundException;
 use Sakila\Exceptions\Repository\RepositoryException;
-use Sakila\Repository\Database\Table\NameResolver;
+use Sakila\Repository\Database\Table\NameResolverInterface;
 use Sakila\Repository\RepositoryInterface;
 
 abstract class AbstractDatabaseRepository implements RepositoryInterface
@@ -32,19 +32,19 @@ abstract class AbstractDatabaseRepository implements RepositoryInterface
     protected $connection;
 
     /**
-     * @var \Sakila\Repository\Database\Table\NameResolver
+     * @var \Sakila\Repository\Database\Table\NameResolverInterface
      */
     private $nameResolver;
 
     /**
-     * @param \Sakila\Repository\Database\ConnectionInterface $connection
-     * @param \Sakila\Entity\FactoryInterface                 $entityFactory
-     * @param \Sakila\Repository\Database\Table\NameResolver  $nameResolver
+     * @param \Sakila\Repository\Database\ConnectionInterface         $connection
+     * @param \Sakila\Entity\FactoryInterface                         $entityFactory
+     * @param \Sakila\Repository\Database\Table\NameResolverInterface $nameResolver
      */
     public function __construct(
         ConnectionInterface $connection,
         FactoryInterface $entityFactory,
-        NameResolver $nameResolver
+        NameResolverInterface $nameResolver
     ) {
         $this->connection    = $connection;
         $this->entityFactory = $entityFactory;

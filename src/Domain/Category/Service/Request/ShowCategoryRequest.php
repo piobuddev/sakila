@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Category\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class ShowCategoryRequest implements Command
+class ShowCategoryRequest implements CommandInterface
 {
     /**
      * @var int

@@ -2,6 +2,6 @@
 
 namespace Sakila\Command;
 
-class AbstractCommand implements Command
+class AbstractCommand implements CommandInterface
 {
 }

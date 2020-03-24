@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Rental\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class ShowRentalsRequest implements Command
+class ShowRentalsRequest implements CommandInterface
 {
     /**
      * @var int

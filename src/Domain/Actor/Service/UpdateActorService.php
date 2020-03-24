@@ -4,20 +4,20 @@ namespace Sakila\Domain\Actor\Service;
 
 use Sakila\Domain\Actor\Entity\Mapper\ActorMapper;
 use Sakila\Domain\Actor\Entity\Transformer\ActorTransformerInterface;
-use Sakila\Domain\Actor\Repository\ActorRepository;
+use Sakila\Domain\Actor\Repository\ActorRepositoryInterface;
 use Sakila\Domain\Actor\Service\Request\UpdateActorRequest;
-use Sakila\Domain\Actor\Validator\ActorValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Actor\Validator\ActorValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class UpdateActorService
 {
     /**
-     * @var \Sakila\Domain\Actor\Validator\ActorValidator
+     * @var \Sakila\Domain\Actor\Validator\ActorValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Actor\Repository\ActorRepository
+     * @var \Sakila\Domain\Actor\Repository\ActorRepositoryInterface
      */
     private $actorRepository;
 
@@ -27,21 +27,21 @@ class UpdateActorService
     private $actorMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Actor\Validator\ActorValidator   $validator
-     * @param \Sakila\Domain\Actor\Repository\ActorRepository $repository
-     * @param \Sakila\Domain\Actor\Entity\Mapper\ActorMapper  $actorMapper
-     * @param \Sakila\Transformer\Transformer                 $transformer
+     * @param \Sakila\Domain\Actor\Validator\ActorValidatorInterface   $validator
+     * @param \Sakila\Domain\Actor\Repository\ActorRepositoryInterface $repository
+     * @param \Sakila\Domain\Actor\Entity\Mapper\ActorMapper           $actorMapper
+     * @param \Sakila\Transformer\TransformerInterface                 $transformer
      */
     public function __construct(
-        ActorValidator $validator,
-        ActorRepository $repository,
+        ActorValidatorInterface $validator,
+        ActorRepositoryInterface $repository,
         ActorMapper $actorMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator       = $validator;
         $this->actorRepository = $repository;

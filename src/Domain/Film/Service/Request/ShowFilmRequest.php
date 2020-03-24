@@ -2,9 +2,9 @@
 
 namespace Sakila\Domain\Film\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 
-class ShowFilmRequest implements Command
+class ShowFilmRequest implements CommandInterface
 {
     /**
      * @var int

@@ -2,7 +2,7 @@
 
 namespace Sakila\Domain\Address\Repository\Database;
 
-use Sakila\Domain\Address\Repository\AddressRepository as AddressRepositoryInterface;
+use Sakila\Domain\Address\Repository\AddressRepositoryInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class AddressRepository extends AbstractDatabaseRepository implements AddressRepositoryInterface

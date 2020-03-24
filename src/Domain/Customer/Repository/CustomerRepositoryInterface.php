@@ -4,6 +4,6 @@ namespace Sakila\Domain\Customer\Repository;
 
 use Sakila\Repository\RepositoryInterface;
 
-interface CustomerRepository extends RepositoryInterface
+interface CustomerRepositoryInterface extends RepositoryInterface
 {
 }

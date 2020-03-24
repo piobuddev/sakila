@@ -2,7 +2,7 @@
 
 namespace Sakila\Test\Domain\Category\Service\Request;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 use Sakila\Domain\Category\Service\Request\UpdateCategoryRequest;
 use Sakila\Test\AbstractUnitTestCase;
 
@@ -14,7 +14,7 @@ class UpdateCategoryRequestTest extends AbstractUnitTestCase
         $categoryId = 1;
         $cut        = new UpdateCategoryRequest($categoryId, $attributes);
 
-        $this->assertInstanceOf(Command::class, $cut);
+        $this->assertInstanceOf(CommandInterface::class, $cut);
         $this->assertEquals($attributes, $cut->getAttributes());
         $this->assertEquals($categoryId, $cut->getCategoryId());
     }

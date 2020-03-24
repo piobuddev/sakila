@@ -2,7 +2,7 @@
 
 namespace Sakila\Domain\Film\Repository\Database;
 
-use Sakila\Domain\Film\Repository\FilmRepository as FilmRepositoryInterface;
+use Sakila\Domain\Film\Repository\FilmRepositoryInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class FilmRepository extends AbstractDatabaseRepository implements FilmRepositoryInterface

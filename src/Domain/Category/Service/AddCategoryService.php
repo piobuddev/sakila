@@ -4,20 +4,20 @@ namespace Sakila\Domain\Category\Service;
 
 use Sakila\Domain\Category\Entity\Mapper\CategoryMapper;
 use Sakila\Domain\Category\Entity\Transformer\CategoryTransformerInterface;
-use Sakila\Domain\Category\Repository\CategoryRepository;
+use Sakila\Domain\Category\Repository\CategoryRepositoryInterface;
 use Sakila\Domain\Category\Service\Request\AddCategoryRequest;
-use Sakila\Domain\Category\Validator\CategoryValidator;
-use Sakila\Transformer\Transformer;
+use Sakila\Domain\Category\Validator\CategoryValidatorInterface;
+use Sakila\Transformer\TransformerInterface;
 
 class AddCategoryService
 {
     /**
-     * @var \Sakila\Domain\Category\Validator\CategoryValidator
+     * @var \Sakila\Domain\Category\Validator\CategoryValidatorInterface
      */
     private $validator;
 
     /**
-     * @var \Sakila\Domain\Category\Repository\CategoryRepository
+     * @var \Sakila\Domain\Category\Repository\CategoryRepositoryInterface
      */
     private $categoryRepository;
 
@@ -27,21 +27,21 @@ class AddCategoryService
     private $categoryMapper;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Category\Validator\CategoryValidator   $validator
-     * @param \Sakila\Domain\Category\Repository\CategoryRepository $repository
-     * @param \Sakila\Domain\Category\Entity\Mapper\CategoryMapper  $categoryMapper
-     * @param \Sakila\Transformer\Transformer                       $transformer
+     * @param \Sakila\Domain\Category\Validator\CategoryValidatorInterface   $validator
+     * @param \Sakila\Domain\Category\Repository\CategoryRepositoryInterface $repository
+     * @param \Sakila\Domain\Category\Entity\Mapper\CategoryMapper           $categoryMapper
+     * @param \Sakila\Transformer\TransformerInterface                       $transformer
      */
     public function __construct(
-        CategoryValidator $validator,
-        CategoryRepository $repository,
+        CategoryValidatorInterface $validator,
+        CategoryRepositoryInterface $repository,
         CategoryMapper $categoryMapper,
-        Transformer $transformer
+        TransformerInterface $transformer
     ) {
         $this->validator          = $validator;
         $this->categoryRepository = $repository;

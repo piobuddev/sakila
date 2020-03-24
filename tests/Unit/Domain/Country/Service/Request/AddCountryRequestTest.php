@@ -2,7 +2,7 @@
 
 namespace Sakila\Test\Domain\Actor\Requests;
 
-use Sakila\Command\Command;
+use Sakila\Command\CommandInterface;
 use Sakila\Domain\Country\Service\Request\AddCountryRequest;
 use Sakila\Test\AbstractUnitTestCase;
 
@@ -13,7 +13,7 @@ class AddCountryRequestTest extends AbstractUnitTestCase
         $attributes = ['country' => 'Italy'];
         $cut        = new AddCountryRequest($attributes);
 
-        $this->assertInstanceOf(Command::class, $cut);
+        $this->assertInstanceOf(CommandInterface::class, $cut);
         $this->assertEquals($attributes, $cut->getAttributes());
     }
 }

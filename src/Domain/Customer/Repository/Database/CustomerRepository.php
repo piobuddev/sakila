@@ -2,7 +2,7 @@
 
 namespace Sakila\Domain\Customer\Repository\Database;
 
-use Sakila\Domain\Customer\Repository\CustomerRepository as CustomerRepositoryInterface;
+use Sakila\Domain\Customer\Repository\CustomerRepositoryInterface;
 use Sakila\Repository\Database\AbstractDatabaseRepository;
 
 class CustomerRepository extends AbstractDatabaseRepository implements CustomerRepositoryInterface

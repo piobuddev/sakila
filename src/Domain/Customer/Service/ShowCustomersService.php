@@ -3,29 +3,29 @@
 namespace Sakila\Domain\Customer\Service;
 
 use Sakila\Domain\Customer\Entity\Transformer\CustomerTransformerInterface;
-use Sakila\Domain\Customer\Repository\CustomerRepository;
+use Sakila\Domain\Customer\Repository\CustomerRepositoryInterface;
 use Sakila\Domain\Customer\Service\Request\ShowCustomersRequest;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class ShowCustomersService
 {
     /**
-     * @var \Sakila\Domain\Customer\Repository\CustomerRepository
+     * @var \Sakila\Domain\Customer\Repository\CustomerRepositoryInterface
      */
     private $repository;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Customer\Repository\CustomerRepository $repository
-     * @param \Sakila\Transformer\Transformer                       $transformer
+     * @param \Sakila\Domain\Customer\Repository\CustomerRepositoryInterface $repository
+     * @param \Sakila\Transformer\TransformerInterface                       $transformer
      */
     public function __construct(
-        CustomerRepository $repository,
-        Transformer $transformer
+        CustomerRepositoryInterface $repository,
+        TransformerInterface $transformer
     ) {
         $this->repository  = $repository;
         $this->transformer = $transformer;

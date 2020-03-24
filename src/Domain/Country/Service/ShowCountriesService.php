@@ -3,29 +3,29 @@
 namespace Sakila\Domain\Country\Service;
 
 use Sakila\Domain\Country\Entity\Transformer\CountryTransformerInterface;
-use Sakila\Domain\Country\Repository\CountryRepository;
+use Sakila\Domain\Country\Repository\CountryRepositoryInterface;
 use Sakila\Domain\Country\Service\Request\ShowCountriesRequest;
-use Sakila\Transformer\Transformer;
+use Sakila\Transformer\TransformerInterface;
 
 class ShowCountriesService
 {
     /**
-     * @var \Sakila\Domain\Country\Repository\CountryRepository
+     * @var \Sakila\Domain\Country\Repository\CountryRepositoryInterface
      */
     private $repository;
 
     /**
-     * @var \Sakila\Transformer\Transformer
+     * @var \Sakila\Transformer\TransformerInterface
      */
     private $transformer;
 
     /**
-     * @param \Sakila\Domain\Country\Repository\CountryRepository $repository
-     * @param \Sakila\Transformer\Transformer                     $transformer
+     * @param \Sakila\Domain\Country\Repository\CountryRepositoryInterface $repository
+     * @param \Sakila\Transformer\TransformerInterface                     $transformer
      */
     public function __construct(
-        CountryRepository $repository,
-        Transformer $transformer
+        CountryRepositoryInterface $repository,
+        TransformerInterface $transformer
     ) {
         $this->repository  = $repository;
         $this->transformer = $transformer;

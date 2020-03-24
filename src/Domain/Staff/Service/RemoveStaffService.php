@@ -2,20 +2,20 @@
 
 namespace Sakila\Domain\Staff\Service;
 
-use Sakila\Domain\Staff\Repository\StaffRepository;
+use Sakila\Domain\Staff\Repository\StaffRepositoryInterface;
 use Sakila\Domain\Staff\Service\Request\RemoveStaffRequest;
 
 class RemoveStaffService
 {
     /**
-     * @var \Sakila\Domain\Staff\Repository\StaffRepository
+     * @var \Sakila\Domain\Staff\Repository\StaffRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param \Sakila\Domain\Staff\Repository\StaffRepository $repository
+     * @param \Sakila\Domain\Staff\Repository\StaffRepositoryInterface $repository
      */
-    public function __construct(StaffRepository $repository)
+    public function __construct(StaffRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
